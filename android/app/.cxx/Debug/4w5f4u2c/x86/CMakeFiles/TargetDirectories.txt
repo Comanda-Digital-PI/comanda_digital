@@ -1,0 +1,2 @@
+C:/Users/User/Development/comanda_digital/android/app/.cxx/Debug/4w5f4u2c/x86/CMakeFiles/edit_cache.dir
+C:/Users/User/Development/comanda_digital/android/app/.cxx/Debug/4w5f4u2c/x86/CMakeFiles/rebuild_cache.dir
