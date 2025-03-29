@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/navigation_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
+import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
 import 'package:flutter_faculdade/app/screens/home_screen.dart';
+import 'package:flutter_faculdade/app/screens/mesas_screen.dart';
+import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
 import 'package:get/get.dart';
 
 
@@ -12,6 +15,9 @@ class GlobalScaffold extends StatelessWidget {
   final NavigationController _controller = Get.find<NavigationController>();
     final List<Widget> screens = [
       HomeScreen(),
+      MesasScreen(),
+      PedidosScreen(),
+      ConfigScreen(),
 
     ];
 
@@ -58,29 +64,56 @@ class GlobalScaffold extends StatelessWidget {
             ),
             bottomNavigationBar: 
               BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 currentIndex: _controller.selectedIndex.value,
                 onTap: _controller.changePage,
-                backgroundColor: Colors.deepOrange,
+                backgroundColor:  Theme.of(context).colorScheme.primary,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white70,
                 elevation: 0, // Remove sombra se necessário
                 items: const [
                   
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.home_outlined),
-                    activeIcon: Icon(Icons.home),
+                    icon: Icon(
+                      Icons.home_outlined,
+                      size: 25,
+                    ),
+                    activeIcon: Icon(
+                      Icons.home,
+                      size: 25,
+                    ),
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.add_business_outlined),
-                    activeIcon: Icon(Icons.add_business_rounded),
-                    label: 'Add Product',
+                    icon: Icon(
+                      Icons.table_restaurant_outlined,
+                      size: 25,
+                    ),
+                    activeIcon: Icon(
+                      Icons.table_restaurant,
+                      size: 25,
+                    ),
+                    label: 'Mesas',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.format_list_bulleted_rounded),
-                    activeIcon: Icon(Icons.list_rounded),
-                    label: 'List Products',
+                    icon: Icon(
+                      Icons.shopping_cart_outlined
+                    ),
+                    activeIcon: Icon(
+                      Icons.shopping_cart_rounded
+                    ),
+                    label: 'Pedidos',
                   ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.add_business_outlined
+                    ),
+                    activeIcon: Icon(
+                      Icons.add_business
+                    ),
+                    label: 'Config. Loja',
+                  ),
+
                 ],
               ),
 

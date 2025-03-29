@@ -18,15 +18,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Teste Flutter',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepOrange),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
         brightness: Brightness.light, // Tema claro
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 18, color: Colors.black), // Estilo de texto global
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.deepOrange, // Cor da AppBar
+          backgroundColor: Colors.deepPurple, // Cor da AppBar
           titleTextStyle: TextStyle(fontSize: 20, color: Colors.white),
         ),
+
       ),
       getPages: AppPages.routes,
       initialRoute: AppRoutes.login,

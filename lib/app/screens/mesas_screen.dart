@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class MesasScreen extends StatelessWidget {
+  const MesasScreen({super.key});
   
   @override
   Widget build(Object context) {
@@ -34,5 +34,4 @@ class HomeScreen extends StatelessWidget {
       ],
     );
   }
-  
 }

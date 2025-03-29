@@ -15,10 +15,13 @@ class NavigationController extends GetxController {
         appBarTitle.value = 'Home';
         return;
       case 1:
-        appBarTitle.value = 'Adicionar Produto';
+        appBarTitle.value = 'Mesas';
         return;
       case 2:
-        appBarTitle.value = 'Listar Produtos';
+        appBarTitle.value = 'Pedidos';
+        return;
+      case 3:
+        appBarTitle.value = 'Adicionar';
         return;
     }
   }
