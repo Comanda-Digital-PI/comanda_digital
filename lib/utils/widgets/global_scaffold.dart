@@ -28,11 +28,17 @@ class GlobalScaffold extends StatelessWidget {
       () { 
         return 
           Scaffold(
-            
             appBar: AppBar(
+              elevation: 3,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8),
+                  bottomRight: Radius.circular(8),
+                )
+              ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.logout),
+                  icon: const Icon(Icons.logout),
                   onPressed: () {
                     Get.offNamed(AppRoutes.login);
                   },
@@ -41,7 +47,7 @@ class GlobalScaffold extends StatelessWidget {
               iconTheme: const IconThemeData(color: Colors.white),
               title: Text( 
                 _controller.appBarTitle.value,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white
                 ),
               ),
