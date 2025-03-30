@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 class ConfigScreen extends StatelessWidget {
-  const ConfigScreen({super.key});
+
+   ConfigScreen({super.key});
+
+  final ConfigController controller = Get.put(ConfigController());
   
   @override
   Widget build(BuildContext context) {
@@ -15,6 +19,7 @@ class ConfigScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
+              elevation: 3,
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -34,23 +39,28 @@ class ConfigScreen extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                     showProdutoBottomSheet(context);
+                     controller.showBottomSheet('produto');
                   },
                   highlightColor: Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                   child: const Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: const [
                         Icon(
                           Icons.add_circle_outline_sharp,
                           color: Colors.white,
+                          size: 30,
                         ),
                         SizedBox(height: 4),
                         Text(
                           'Adicionar Produto',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                          ),
                         ),
                       ],
                     ),
@@ -67,109 +77,7 @@ class ConfigScreen extends StatelessWidget {
   }
 
 
-void showProdutoBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    isScrollControlled: true, // Permite que o bottom sheet se ajuste ao teclado
-    context: context,
-    backgroundColor: Colors.white,
-    builder: (context) {
-      return Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom, // Ajusta o padding quando o teclado aparece
-        ),
-        child: FractionallySizedBox(
-          heightFactor: 0.5,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                    'Adicionar Produto',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Lógica para selecionar a foto
-                    },
-                    icon: const Icon(Icons.camera_alt, color: Colors.white),
-                    label: const Text(
-                      'Selecionar Foto',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'Nome do Produto',
-                      hintStyle: const TextStyle(color: Colors.white70),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: 'Valor',
-                      hintStyle: const TextStyle(color: Colors.white70),
-                      filled: true,
-                      fillColor: Colors.white.withOpacity(0.2),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Lógica para salvar os dados
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.deepPurple,
-                      backgroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                    ),
-                    child: const Text('Salvar'),
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    },
-  );
-}
+
 
 
   

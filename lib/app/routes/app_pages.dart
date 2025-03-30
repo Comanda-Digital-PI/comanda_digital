@@ -36,7 +36,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.addConfig,
-      page: () => const ConfigScreen(),
+      page: () => ConfigScreen(),
     ),
 
   ];
