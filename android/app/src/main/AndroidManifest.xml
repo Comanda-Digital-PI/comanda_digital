@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="flutter_example"
+        android:label="Comanda Digital"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
