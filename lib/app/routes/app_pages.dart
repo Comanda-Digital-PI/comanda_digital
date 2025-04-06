@@ -1,7 +1,7 @@
 import 'package:flutter_faculdade/app/controllers/navigation_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
-import 'package:flutter_faculdade/app/screens/home_screen.dart';
+import 'package:flutter_faculdade/app/screens/home/home_screen.dart';
 import 'package:flutter_faculdade/app/screens/auth/login_screen.dart';
 import 'package:flutter_faculdade/app/screens/mesas_screen.dart';
 import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
