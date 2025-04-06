@@ -31,8 +31,8 @@ class ConfigScreen extends StatelessWidget {
                     begin: AlignmentDirectional.topStart,
                     end: AlignmentDirectional.bottomEnd,
                     colors: [
-                      Colors.purpleAccent,
                       Colors.deepPurpleAccent,
+                      Colors.purple,
                     ],
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -47,7 +47,7 @@ class ConfigScreen extends StatelessWidget {
                     padding: EdgeInsets.all(12),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children:  [
                         Icon(
                           Icons.add_circle_outline_sharp,
                           color: Colors.white,
