@@ -17,14 +17,15 @@ class LoginScreen extends StatelessWidget {
      
       body: 
         Container(
-          decoration: const BoxDecoration(
+          decoration:  BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.deepPurpleAccent,
+                Colors.deepPurple.shade500,
+                Colors.purple.shade300,
+                
                 // Colors.deepPurple,
-                Colors.purple,
               ],
             )
           ),
