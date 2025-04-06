@@ -21,12 +21,12 @@ class HomeScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Prontos para entrega',
                       style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.grey.shade800,
                         height: 0,
                         fontWeight: FontWeight.bold,
                         fontSize: 18
@@ -36,10 +36,10 @@ class HomeScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         border: Border(
                           bottom: BorderSide(
-                            color: Colors.black, 
+                            color: Colors.grey.shade500, 
                             width: 1
                           )
                         )
