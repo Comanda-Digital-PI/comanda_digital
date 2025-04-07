@@ -8,21 +8,21 @@ class HomeScreen extends StatelessWidget {
   
   @override
   Widget build(Object context) {
-    return   Column(
-      children: [
-        const Categorias(),
-        const SizedBox(height: 10,),
-        const CarouselPromocoes(),
-        const SizedBox(height: 10,),
-        Expanded(
-          flex: 2,
-          child: Column(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          const Categorias(),
+          const SizedBox(height: 10,),
+          const CarouselPromocoes(),
+          const SizedBox(height: 10,),
+          Column(
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(5.0),
                     child: Text(
                       'Prontos para entrega',
                       style: TextStyle(
@@ -50,8 +50,8 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           )
-        )
-      ],
+        ],
+      ),
     );
   }
 
