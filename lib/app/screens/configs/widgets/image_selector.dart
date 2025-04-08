@@ -21,7 +21,7 @@ class ImageSelector extends StatelessWidget {
           'Imagem',
           style: TextStyle(
             fontSize: 20,
-            color: Colors.deepPurple
+            color: Colors.black
           ),
         ),
         const SizedBox(height: 8),

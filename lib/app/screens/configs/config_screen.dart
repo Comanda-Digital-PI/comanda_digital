@@ -39,7 +39,7 @@ class ConfigScreen extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                     controller.showBottomSheet('produto');
+                     controller.showBottomSheet('produto', 'Novo Produto');
                   },
                   highlightColor: Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
@@ -74,11 +74,5 @@ class ConfigScreen extends StatelessWidget {
         )
       ],
     );
-  }
-
-
-
-
-
-  
+  }  
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:flutter_faculdade/app/screens/configs/widgets/image_selector.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -12,23 +13,57 @@ class ConfigController extends GetxController {
   final Rx<File?> imageFile = Rx<File?>(null);
 
   final RxString tipoBottomSheet = ''.obs;
+  final RxString labelBottomSheet = ''.obs;
   final ImagePicker _picker = ImagePicker();
 
-  void showBottomSheet(String tipo){
+  final List<Map<String, dynamic>> categorias = [
+    {'id': 1, 'nome': 'Pratos'},
+    {'id': 2, 'nome': 'Bebidas'},
+    {'id': 3, 'nome': 'Aperitivos'},
+    {'id': 4, 'nome': 'Sobremesa'},
+    {'id': 5, 'nome': 'Sobremesas'},
+  ];
+
+  final RxnString categoriaSelecionada = RxnString();
+
+  final List<Produto> produtos = [];
+
+  void showBottomSheet(String tipo, String label){
     tipoBottomSheet.value = tipo;
+    labelBottomSheet.value = label;
     showProdutoBottomSheet();
   }
 
-    Future<void> pickImage(ImageSource source) async {
-      try {
-        final pickedFile = await _picker.pickImage(source: source);
-        if (pickedFile != null) {
-          imageFile.value = File(pickedFile.path);
-        }
-      } catch (e) {
-        debugPrint('Erro ao selecionar imagem: $e');
+  Future<void> pickImage(ImageSource source) async {
+    try {
+      final pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFile.value = File(pickedFile.path);
       }
+    } catch (e) {
+      debugPrint('Erro ao selecionar imagem: $e');
     }
+  }
+
+  void adicionarProduto(){
+    if (imageFile.value == null) {
+      print("Selecione uma imagem antes de adicionar o produto.");
+      return;
+    }
+
+    produtos.add(
+      Produto(
+        nomeProduto: nomeProduto.text,
+        valor: double.tryParse(valorProduto.text.toString()) ?? 0.0, 
+        categoria: categoriaSelecionada.value.toString(), 
+        image: imageFile.value!.path.toString()
+      )
+    );
+
+    print(produtos);
+  }
+
+
 
 
   TextField buildTextField(label, textController, context, {isPassword = false}) {
@@ -41,11 +76,11 @@ class ConfigController extends GetxController {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(
-            color: Colors.deepPurple
+            color: Colors.black
           ),
           floatingLabelStyle: const TextStyle(
             fontSize: 20,
-            color: Colors.deepPurple
+            color: Colors.black
           ),
           enabledBorder:  UnderlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).colorScheme.primary, width: 2),
@@ -75,7 +110,7 @@ void showProdutoBottomSheet() {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
            Container(
-            height: 55,
+            height: 45,
             width: double.infinity,
             
             decoration: const BoxDecoration(
@@ -85,18 +120,18 @@ void showProdutoBottomSheet() {
                 bottomRight: Radius.circular(8)
               )
             ),
-            child: const Row(
+            child:  Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 8),
+                  padding: const EdgeInsets.only(left: 8),
                   child: Text(
-                    'Novo Produto',
-                    style: TextStyle(
+                    labelBottomSheet.value,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20
+                      fontSize: 17
                     ),
                   ),
                 ),
@@ -111,42 +146,7 @@ void showProdutoBottomSheet() {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if(tipoBottomSheet.value.contains('produto')) ... [
-                      buildTextField('Nome Produto', nomeProduto, Get.context),
-                      const SizedBox(height: 10,),
-                      buildTextField('Valor', valorProduto, Get.context),
-                      const SizedBox(height: 20,),
-                      ImageSelector(controller:  Get.find<ConfigController>()),
-                      const SizedBox(height: 10,),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7),
-                        child: SizedBox(
-                          width: 120,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              nomeProduto.clear();
-                              valorProduto.clear();
-                              print(imageFile.value);
-                              imageFile.value = null;
-                              Get.back();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepPurple
-                            ),
-                            label: const Text(
-                              'Salvar',
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                            icon: const Icon(
-                              Icons.save,
-                              color: Colors.white,
-                            ),
-                            iconAlignment: IconAlignment.end,
-                          ),
-                        ),
-                      )
-
+                      productBottomSheet()
                     ],
                   ],
                 ),
@@ -161,7 +161,87 @@ void showProdutoBottomSheet() {
   );
 }
 
-
+  Column productBottomSheet() {
+    return Column(
+      children: [
+        buildTextField('Nome Produto', nomeProduto, Get.context),
+        const SizedBox(height: 10,),
+        buildTextField('Valor', valorProduto, Get.context),
+        const SizedBox(height: 20,),
+        Form(
+          child: DropdownButtonFormField<String>(
+            padding: const EdgeInsets.all(8),
+            decoration: const InputDecoration(
+              labelText: 'Categoria',
+              floatingLabelStyle: TextStyle(
+                fontSize: 20,
+                color: Colors.black
+              ),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 2,
+                  color: Colors.deepPurple
+                )
+              ),
+              disabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(width: 2, color: Colors.deepPurple)
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.deepPurple, width: 2)
+              )
+            ),
+            // O valor selecionado no momento
+            value: categoriaSelecionada.value,
+            items: categorias.map((categoria) {
+              return DropdownMenuItem<String>(
+                value: categoria['nome'],
+                child: Text(categoria['nome']),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              categoriaSelecionada.value = newValue ?? '';
+            },
+            // Exemplo de validação: obrigatório selecionar uma categoria
+            validator: (value) =>
+                value == null || value.isEmpty ? 'Selecione uma categoria' : null,
+          ),
+        ),
+        const SizedBox(height: 20,),
+        ImageSelector(controller:  Get.find<ConfigController>()),
+        const SizedBox(height: 10,),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 7),
+          child: SizedBox(
+            width: 120,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                adicionarProduto();
+                nomeProduto.clear();
+                valorProduto.clear();
+                imageFile.value = null;
+                categoriaSelecionada.value = null;
+                Get.back();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple
+              ),
+              label: const Text(
+                'Salvar',
+                style: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              icon: const Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
+              iconAlignment: IconAlignment.end,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
 
 }
