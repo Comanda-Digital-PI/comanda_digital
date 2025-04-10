@@ -15,89 +15,89 @@ class LoginScreen extends StatelessWidget {
 
     return Scaffold(
      
-      body: 
-        Container(
-          decoration:  BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.deepPurple.shade500,
-                Colors.purple.shade300,
-                
-                // Colors.deepPurple,
+      body: Container(
+        decoration:  BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.purple.shade900,
+              Colors.purple.shade800,
+              Colors.purple.shade600,
+              Colors.purple.shade400,
+              Colors.white,
+            ],
+          )
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Column(
+              children: [
+                Text(
+                  'Comanda Digital',
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white
+                  ),
+                )
               ],
-            )
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Column(
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                        
+                    buildTextField('Usuário', controller.username, context),
+                    const SizedBox(height: 15,),
+                    buildTextField('Senha', controller.password, isPassword: true, context),
+                    const SizedBox(height: 15,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Comanda Digital',
-                          style: TextStyle(
-                            fontSize: 45,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white
-                          ),
-                        )
+                        Expanded(
+                          child:     
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: FloatingActionButton(
+                                onPressed:() {
+                                  controller.login();
+                                },
+                                backgroundColor: Theme.of(context).colorScheme.primary,
+                                elevation: 2,
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Entrar',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20
+                                      ),
+                                    ),
+                                    SizedBox(width: 15,),
+                                    Icon(
+                                      Icons.login,
+                                      size: 25,
+                                      color: Colors.white,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                        ),
                       ],
                     ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                          
-                      buildTextField('Usuário', controller.username, context),
-                      const SizedBox(height: 15,),
-                      buildTextField('Senha', controller.password, isPassword: true, context),
-                      const SizedBox(height: 15,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child:     
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: FloatingActionButton(
-                                  onPressed:() {
-                                    controller.login();
-                                  },
-                                  backgroundColor: Theme.of(context).colorScheme.primary,
-                                  elevation: 2,
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Entrar',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20
-                                        ),
-                                      ),
-                                      SizedBox(width: 15,),
-                                      Icon(
-                                        Icons.login,
-                                        size: 25,
-                                        color: Colors.white,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        )
+            ),
+          ],
+        ),
+      )
     );
    }
 

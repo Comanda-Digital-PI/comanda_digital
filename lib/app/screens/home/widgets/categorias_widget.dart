@@ -69,7 +69,6 @@ class Categorias extends StatelessWidget {
               ),
             ),
             Expanded(
-              // flex: 2,
               child: Card(
                 color: Colors.deepPurpleAccent,
                 elevation: 3,
@@ -132,7 +131,7 @@ class Categorias extends StatelessWidget {
               child: Card(
                 color: Colors.deepPurpleAccent,
                 elevation: 3,
-                margin:  const EdgeInsets.all(10),
+                margin:  const EdgeInsets.all(8),
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -173,7 +172,7 @@ class Categorias extends StatelessWidget {
               child: Card(
                 color: Colors.deepPurpleAccent,
                 elevation: 3,
-                margin:  const EdgeInsets.all(10),
+                margin:  const EdgeInsets.all(8),
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -214,7 +213,7 @@ class Categorias extends StatelessWidget {
               child: Card(
                 color: Colors.deepPurpleAccent,
                 elevation: 3,
-                margin:  const EdgeInsets.all(10),
+                margin:  const EdgeInsets.all(8),
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -255,7 +254,7 @@ class Categorias extends StatelessWidget {
               child: Card(
                 color: Colors.deepPurpleAccent,
                 elevation: 3,
-                margin:  const EdgeInsets.all(10),
+                margin:  const EdgeInsets.all(8),
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
