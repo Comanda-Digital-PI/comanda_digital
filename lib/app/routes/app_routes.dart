@@ -5,4 +5,5 @@ class AppRoutes {
   static const pedidos = '/pedidos';
   static const mesas = '/mesas';
   static const addConfig = '/adicionar';
+  static const product = '/produtos';
 }

@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
-          const Categorias(),
+          Categorias(),
           const SizedBox(height: 10,),
           const CarouselPromocoes(),
           const SizedBox(height: 10,),

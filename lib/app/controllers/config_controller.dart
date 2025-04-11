@@ -11,22 +11,28 @@ class ConfigController extends GetxController {
 
   final TextEditingController nomeProduto = TextEditingController();    
   final TextEditingController valorProduto = TextEditingController();    
+  
   final Rx<File?> imageFile = Rx<File?>(null);
-
   final RxString tipoBottomSheet = ''.obs;
   final RxString labelBottomSheet = ''.obs;
+  final RxString appBarTitle = ''.obs;
+
+
   final ImagePicker _picker = ImagePicker();
 
   final List<Map<String, dynamic>> categorias = [
     {'id': 1, 'nome': 'Pratos'},
     {'id': 2, 'nome': 'Bebidas'},
     {'id': 3, 'nome': 'Aperitivos'},
-    {'id': 4, 'nome': 'Sobremesa'},
+    {'id': 4, 'nome': 'Drinks'},
+    {'id': 5, 'nome': 'Sobremesa'},
   ];
 
   final RxnString categoriaSelecionada = RxnString();
 
   final RxList<Produto> produtos = <Produto>[].obs;
+  final RxList<Produto> produtosFiltered = <Produto>[].obs;
+
 
   void showBottomSheet(String tipo, String label){
     tipoBottomSheet.value = tipo;
