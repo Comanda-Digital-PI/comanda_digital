@@ -14,7 +14,7 @@ class CarouselPromocoes extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
              Padding(
-              padding: EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
               child: Text(
                 'Promoções',
                 style: TextStyle(

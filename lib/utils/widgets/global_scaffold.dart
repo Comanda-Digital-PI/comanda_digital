@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/navigation_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
@@ -14,9 +15,9 @@ class GlobalScaffold extends StatelessWidget {
   GlobalScaffold({super.key});
   final NavigationController _controller = Get.find<NavigationController>();
     final List<Widget> screens = [
-      HomeScreen(),
-      MesasScreen(),
-      PedidosScreen(),
+      const HomeScreen(),
+      const MesasScreen(),
+      const PedidosScreen(),
       ConfigScreen(),
 
     ];
@@ -42,9 +43,11 @@ class GlobalScaffold extends StatelessWidget {
                   backgroundColor: Colors.white,
                   child: IconButton(
                     onPressed: () {
-                      print('aaaaaaa');
+                      if (kDebugMode) {
+                        print('aaaaaaa');
+                      }
                     }, 
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.person_2_sharp,
                       color: Colors.deepPurple,
                     )

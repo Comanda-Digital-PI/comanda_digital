@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:flutter_faculdade/app/screens/configs/widgets/image_selector.dart';
@@ -46,7 +47,9 @@ class ConfigController extends GetxController {
 
   void adicionarProduto(){
     if (imageFile.value == null) {
-      print("Selecione uma imagem antes de adicionar o produto.");
+      if (kDebugMode) {
+        print("Selecione uma imagem antes de adicionar o produto.");
+      }
       return;
     }
 
