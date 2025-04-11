@@ -21,12 +21,11 @@ class ConfigController extends GetxController {
     {'id': 2, 'nome': 'Bebidas'},
     {'id': 3, 'nome': 'Aperitivos'},
     {'id': 4, 'nome': 'Sobremesa'},
-    {'id': 5, 'nome': 'Sobremesas'},
   ];
 
   final RxnString categoriaSelecionada = RxnString();
 
-  final List<Produto> produtos = [];
+  final RxList<Produto> produtos = <Produto>[].obs;
 
   void showBottomSheet(String tipo, String label){
     tipoBottomSheet.value = tipo;
@@ -59,19 +58,20 @@ class ConfigController extends GetxController {
         image: imageFile.value!.path.toString()
       )
     );
-
+    
   }
 
 
 
 
-  TextField buildTextField(label, textController, context, {isPassword = false}) {
+  TextField buildTextField(label, textController, context, {isPassword = false, bool numeric = false}) {
       return TextField(
         controller: textController,
         obscureText: isPassword,
         style: const TextStyle(
           color: Colors.black
         ),
+        keyboardType: numeric ? const TextInputType.numberWithOptions(decimal: true) : null,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(
@@ -165,7 +165,7 @@ void showProdutoBottomSheet() {
       children: [
         buildTextField('Nome Produto', nomeProduto, Get.context),
         const SizedBox(height: 10,),
-        buildTextField('Valor', valorProduto, Get.context),
+        buildTextField('Valor', valorProduto, Get.context, numeric: true),
         const SizedBox(height: 20,),
         Form(
           child: DropdownButtonFormField<String>(

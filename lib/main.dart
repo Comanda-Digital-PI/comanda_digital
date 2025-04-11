@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_pages.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/utils/app_bindings.dart';
@@ -6,6 +7,8 @@ import 'package:get/get.dart';
 
 
 void main() {
+  Get.put(ConfigController());
+
   runApp(const MyApp());
 }
 

@@ -49,7 +49,6 @@ class LoginScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                        
                     buildTextField('Usuário', controller.username, context),
                     const SizedBox(height: 15,),
                     buildTextField('Senha', controller.password, isPassword: true, context),
