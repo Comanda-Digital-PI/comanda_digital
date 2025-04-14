@@ -51,7 +51,7 @@ class ConfigController extends GetxController {
     }
   }
 
-  void adicionarProduto(){
+  Future<void> adicionarProduto() async {
     if (imageFile.value == null) {
       if (kDebugMode) {
         print("Selecione uma imagem antes de adicionar o produto.");
@@ -67,8 +67,26 @@ class ConfigController extends GetxController {
         image: imageFile.value!.path.toString()
       )
     );
+
+    Get.back();
+    nomeProduto.clear();
+    valorProduto.clear();
+    imageFile.value = null;
+    categoriaSelecionada.value = null;
     
+    Get.showSnackbar( const GetSnackBar(
+      message: 'Produto cadastrado com sucesso!', // Mensagem do snackbar
+      duration:  Duration(seconds: 5), // Define a duração
+      backgroundColor: Colors.green, // Cor de fundo
+      snackPosition: SnackPosition.TOP, // Posição do snackbar
+      margin:  EdgeInsets.all(10),
+      borderRadius: 8,
+      icon:  Icon(Icons.warning, color: Colors.white),
+    ));
+
   }
+
+
 
 
 
@@ -224,11 +242,8 @@ void showProdutoBottomSheet() {
             child: ElevatedButton.icon(
               onPressed: () {
                 adicionarProduto();
-                nomeProduto.clear();
-                valorProduto.clear();
-                imageFile.value = null;
-                categoriaSelecionada.value = null;
-                Get.back();
+
+                // Get.back();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple

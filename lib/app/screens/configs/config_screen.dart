@@ -15,53 +15,110 @@ class ConfigScreen extends StatelessWidget {
         Row(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Card(
-              elevation: 3,
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              margin: EdgeInsets.zero,
-              child: Ink(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                    colors: [
-                      Colors.deepPurpleAccent,
-                      Colors.purple,
-                    ],
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: InkWell(
-                  onTap: () {
-                     controller.showBottomSheet('produto', 'Novo Produto');
-                  },
-                  highlightColor: Colors.transparent,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 3,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
-                  child: const Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children:  [
-                        Icon(
-                          Icons.add_circle_outline_sharp,
-                          color: Colors.white,
-                          size: 30,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Adicionar Produto',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                          ),
-                        ),
+                ),
+                margin: EdgeInsets.zero,
+                child: Ink(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: AlignmentDirectional.topStart,
+                      end: AlignmentDirectional.bottomEnd,
+                      colors: [
+                        Colors.deepPurpleAccent,
+                        Colors.purple,
                       ],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                       controller.showBottomSheet('produto', 'Novo Produto');
+                    },
+                    highlightColor: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children:  [
+                          Icon(
+                            Icons.add_circle_outline_sharp,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Adicionar Produto',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 3,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                margin: EdgeInsets.zero,
+                child: Ink(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: AlignmentDirectional.topStart,
+                      end: AlignmentDirectional.bottomEnd,
+                      colors: [
+                        Colors.deepPurpleAccent,
+                        Colors.purple,
+                      ],
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                       controller.showBottomSheet('produto', 'Novo Produto');
+                    },
+                    highlightColor: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                    child: const Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children:  [
+                          Icon(
+                            Icons.list_outlined,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            'Listas',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
