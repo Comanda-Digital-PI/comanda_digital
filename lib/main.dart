@@ -5,7 +5,6 @@ import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/utils/app_bindings.dart';
 import 'package:get/get.dart';
 
-
 void main() {
   Get.put(ConfigController());
 
@@ -24,18 +23,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
         brightness: Brightness.light, // Tema claro
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 18, color: Colors.black), // Estilo de texto global
+          bodyLarge: TextStyle(
+              fontSize: 18, color: Colors.black), // Estilo de texto global
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepPurple, // Cor da AppBar
           titleTextStyle: TextStyle(fontSize: 20, color: Colors.white),
         ),
-
       ),
       getPages: AppPages.routes,
-      initialRoute: AppRoutes.login,
-      initialBinding: AppBindings(), 
+      initialRoute: AppRoutes.splash,
+      initialBinding: AppBindings(),
     );
   }
 }
-

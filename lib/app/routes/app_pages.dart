@@ -8,12 +8,14 @@ import 'package:flutter_faculdade/app/screens/mesas_screen.dart';
 import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
 import 'package:flutter_faculdade/utils/widgets/global_scaffold.dart';
 import 'package:get/get.dart';
+import 'package:flutter_faculdade/app/screens/home/widgets/splash_screen.dart';
 
 class AppPages {
   static final routes = [
     GetPage(
       name: AppRoutes.login,
       page: () => LoginScreen(),
+      transition: Transition.noTransition, 
     ),
     GetPage(
       name: AppRoutes.globalScaffold,
@@ -43,6 +45,10 @@ class AppPages {
       name: AppRoutes.addConfig,
       page: () => ConfigScreen(),
     ),
+    GetPage(
+  name: AppRoutes.splash,
+  page: () => const SplashScreen(),
+)
 
   ];
 }
