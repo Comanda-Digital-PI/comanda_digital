@@ -29,70 +29,76 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          SafeArea(
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return SingleChildScrollView(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: ConstrainedBox(
-                    constraints:
-                        BoxConstraints(minHeight: constraints.maxHeight),
-                    child: IntrinsicHeight(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Image.asset(
+                        'assets/komanda.png',
+                        height: 120,
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30, left: 10, right: 10),
+                    child: SingleChildScrollView(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const SizedBox(height: 50),
-                          Image.asset(
-                            'assets/Omanda.png',
-                            width: 300,
-                          ),
-                          const SizedBox(height: 30),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Column(
-                              children: [
-                                buildTextField(
-                                    'Usuário', controller.username, context),
-                                const SizedBox(height: 15),
-                                buildTextField(
-                                    'Senha',
-                                    controller.password,
-                                    isPassword: true,
-                                    context),
-                                const SizedBox(height: 25),
-                                FloatingActionButton.extended(
-                                  onPressed: () {
-                                    controller.login();
-                                  },
-                                  label: const Text(
-                                    'Entrar',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                          buildTextField('Usuário', controller.username, context),
+                          const SizedBox(height: 15,),
+                          buildTextField('Senha', controller.password, isPassword: true, context),
+                          const SizedBox(height: 15,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child:     
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: FloatingActionButton(
+                                      onPressed:() {
+                                        controller.login();
+                                      },
+                                      backgroundColor: Theme.of(context).colorScheme.primary,
+                                      elevation: 2,
+                                      child: const Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Entrar',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20
+                                            ),
+                                          ),
+                                          SizedBox(width: 15,),
+                                          Icon(
+                                            Icons.login,
+                                            size: 25,
+                                            color: Colors.white,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  icon: const Icon(
-                                    Icons.login,
-                                    size: 25,
-                                    color: Colors.white,
-                                  ),
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  elevation: 2,
-                                ),
-                              ],
-                            ),
+                                  )
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 50),
                         ],
                       ),
                     ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
         ],

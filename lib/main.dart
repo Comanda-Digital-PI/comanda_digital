@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       getPages: AppPages.routes,
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.login,
       initialBinding: AppBindings(),
     );
   }

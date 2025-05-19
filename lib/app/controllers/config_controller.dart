@@ -9,7 +9,9 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ConfigController extends GetxController {
+
   final TextEditingController nomeProduto = TextEditingController();
+  final TextEditingController numMesa = TextEditingController();
   final TextEditingController valorProduto = TextEditingController();
 
   final Rx<File?> imageFile = Rx<File?>(null);
@@ -83,7 +85,7 @@ class ConfigController extends GetxController {
   }
 
   Future<void> adicionarMesa() async {
-    if (nomeProduto.text.isEmpty) {
+    if (numMesa.text.isEmpty) {
       if (kDebugMode) {
         print("Digite o número da mesa.");
       }
@@ -91,12 +93,12 @@ class ConfigController extends GetxController {
     }
 
     mesas.add(MesaModel(
-      numero: int.tryParse(nomeProduto.text) ?? 0,
+      numero: int.tryParse(numMesa.text) ?? 0,
       status: 'disponivel',
     ));
 
     Get.back();
-    nomeProduto.clear();
+    numMesa.clear();
 
     Get.showSnackbar(const GetSnackBar(
       message: 'Mesa cadastrada com sucesso!',
@@ -276,8 +278,7 @@ class ConfigController extends GetxController {
   Column mesaBottomSheet() {
     return Column(
       children: [
-        buildTextField('Número da Mesa', nomeProduto, Get.context,
-            numeric: true),
+        buildTextField('Número da Mesa', numMesa, Get.context, numeric: true),
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 7),

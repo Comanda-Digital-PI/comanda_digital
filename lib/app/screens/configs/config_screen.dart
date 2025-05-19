@@ -54,11 +54,13 @@ class ConfigScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              'Adicionar Mesa',
+                              'Add Mesa',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              softWrap: false,
                             ),
                           ],
                         ),
@@ -108,10 +110,10 @@ class ConfigScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              'Adicionar Produto',
+                              'Add Produto',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -165,7 +167,7 @@ class ConfigScreen extends StatelessWidget {
                               'Listas',
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold),
                             ),
                           ],
