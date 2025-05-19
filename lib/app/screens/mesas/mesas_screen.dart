@@ -18,14 +18,27 @@ class MesasScreen extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               hintText: 'Buscar nº da mesa/comanda',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+              hintStyle: TextStyle(color: Colors.deepPurple.shade900),
+              prefixIcon: Icon(Icons.search, color: Colors.deepPurple.shade900),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                borderRadius: const BorderRadius.all(Radius.circular(3))
+              ),
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                borderRadius: const BorderRadius.all(Radius.circular(3))
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Theme.of(context).primaryColor,
+                  width: 2,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(3))
               ),
             ),
+            cursorColor: Theme.of(context).primaryColor,
           ),
           const SizedBox(height: 16),
-
           // Grid de mesas
           Expanded(
             child: GridView.builder(

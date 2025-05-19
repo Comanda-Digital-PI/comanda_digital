@@ -22,10 +22,10 @@ class LoginScreen extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   Colors.purple.shade900,
-                  Colors.purple.shade800,
-                  Colors.purple.shade600,
+                  Colors.purple.shade700,
+                  Colors.purple.shade500,
                   Colors.purple.shade400,
-                  Colors.white,
+                  // Colors.white,
                 ],
               ),
             ),
