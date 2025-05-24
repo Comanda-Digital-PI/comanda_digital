@@ -4,6 +4,7 @@ import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
 import 'package:flutter_faculdade/app/screens/home/home_screen.dart';
 import 'package:flutter_faculdade/app/screens/auth/login_screen.dart';
 import 'package:flutter_faculdade/app/screens/home/widgets/product_widget.dart';
+import 'package:flutter_faculdade/app/screens/lists/view_lists_screen.dart';
 import 'package:flutter_faculdade/app/screens/mesas/mesas_screen.dart';
 import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
 import 'package:flutter_faculdade/utils/widgets/global_scaffold.dart';
@@ -44,6 +45,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.addConfig,
       page: () => ConfigScreen(),
+    ),
+    GetPage(
+      name: AppRoutes.viewLists,
+      page: () => ViewlistsScreen(),
     ),
   ];
 }

@@ -8,10 +8,11 @@ import 'package:flutter_faculdade/utils/app_bindings.dart';
 import 'package:get/get.dart';
 
 void main() async {
-  Get.put(ConfigController());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  Get.put(ConfigController());
   runApp(const MyApp());
 }
 

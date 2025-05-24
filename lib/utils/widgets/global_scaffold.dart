@@ -49,7 +49,8 @@ class GlobalScaffold extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.logout),
               onPressed: () {
-                Get.offNamed(AppRoutes.login);
+                _controller.selectedIndex.value = 0;
+                Get.offAllNamed(AppRoutes.login);
               },
             ),
           ],

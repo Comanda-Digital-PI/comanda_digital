@@ -8,4 +8,5 @@ class AppRoutes {
   static const addConfig = '/adicionar';
   static const product = '/produtos';
   static const cadastroMesa = '/cadastro-mesa';
+  static const viewLists = '/visualizar-listas';
 }

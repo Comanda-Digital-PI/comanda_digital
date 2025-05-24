@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'comanda-digital-5dbae.firebaseapp.com',
     storageBucket: 'comanda-digital-5dbae.firebasestorage.app',
   );
+
 }

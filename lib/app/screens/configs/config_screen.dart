@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
+import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class ConfigScreen extends StatelessWidget {
@@ -148,7 +149,7 @@ class ConfigScreen extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        controller.showBottomSheet('produto', 'Novo Produto');
+                        Get.toNamed(AppRoutes.viewLists);
                       },
                       highlightColor: Colors.transparent,
                       borderRadius: BorderRadius.circular(8),

@@ -1,12 +1,16 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:flutter_faculdade/app/models/mesa_model.dart';
 import 'package:flutter_faculdade/app/screens/configs/widgets/image_selector.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ConfigController extends GetxController {
 
@@ -14,13 +18,18 @@ class ConfigController extends GetxController {
   final TextEditingController numMesa = TextEditingController();
   final TextEditingController valorProduto = TextEditingController();
 
+  final db = FirebaseFirestore.instance;
+
   final Rx<File?> imageFile = Rx<File?>(null);
   final RxString tipoBottomSheet = ''.obs;
   final RxString labelBottomSheet = ''.obs;
   final RxString appBarTitle = ''.obs;
+  final RxnString categoriaSelecionada = RxnString();
+  final RxList<Produto> produtos = <Produto>[].obs;
+  final RxList<Produto> produtosFiltered = <Produto>[].obs;
+  final RxList<MesaModel> mesas = <MesaModel>[].obs;
 
   final ImagePicker _picker = ImagePicker();
-
   final List<Map<String, dynamic>> categorias = [
     {'id': 1, 'nome': 'Pratos'},
     {'id': 2, 'nome': 'Bebidas'},
@@ -29,11 +38,13 @@ class ConfigController extends GetxController {
     {'id': 5, 'nome': 'Sobremesa'},
   ];
 
-  final RxnString categoriaSelecionada = RxnString();
+  @override
+  void onInit() async {
+    super.onInit();
+    await fetchProdutos();
+    await fetchMesas();
+  }
 
-  final RxList<Produto> produtos = <Produto>[].obs;
-  final RxList<Produto> produtosFiltered = <Produto>[].obs;
-  final RxList<MesaModel> mesas = <MesaModel>[].obs;
 
   void showBottomSheet(String tipo, String label) {
     tipoBottomSheet.value = tipo;
@@ -53,6 +64,7 @@ class ConfigController extends GetxController {
   }
 
   Future<void> adicionarProduto() async {
+
     if (imageFile.value == null) {
       if (kDebugMode) {
         print("Selecione uma imagem antes de adicionar o produto.");
@@ -60,12 +72,28 @@ class ConfigController extends GetxController {
       return;
     }
 
-    produtos.add(Produto(
+    final novoProd = Produto(
       nomeProduto: nomeProduto.text,
       valor: double.tryParse(valorProduto.text.toString()) ?? 0.0,
       categoria: categoriaSelecionada.value.toString(),
       image: imageFile.value!.path.toString(),
-    ));
+    );
+
+    if (produtos.any((p) => p.nomeProduto == novoProd.nomeProduto)) {
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Já existe um produto com esse nome!',
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 3),
+      ));
+      return;
+    }
+
+      final imageUrl = await cacheImageLocally(imageFile.value!);
+      if (imageUrl == null) return; 
+    
+    await addProductsFirebase(novoProd, imageUrl);
+    produtos.add(novoProd.copyWith(image: imageUrl));
+
 
     Get.back();
     nomeProduto.clear();
@@ -82,6 +110,96 @@ class ConfigController extends GetxController {
       borderRadius: 8,
       icon: Icon(Icons.check, color: Colors.white),
     ));
+
+  }
+
+  Future<void> addProductsFirebase(Produto produto, String imageUrl) async {
+    try {
+      await db.collection('produtos').add({
+        'nomeProduto': produto.nomeProduto,
+        'valor':       produto.valor,
+        'categoria':   produto.categoria,
+        'image':       imageUrl,
+      });
+    } on FirebaseException catch (e) {
+      if (kDebugMode) print("Erro ao salvar produto: ${e.message}");
+
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao salvar produto.',
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+  }
+
+  Future<void> addMesaFirebase(MesaModel mesa) async {
+    try {
+      final docId = mesa.numero.toString();
+      await db
+        .collection('mesas')
+        .doc(docId)            // usa o número da mesa como ID
+        .set({
+          'numeroMesa': mesa.numero,
+          'status':     mesa.status,
+        });
+
+    } on FirebaseException catch (e) {
+      print('code: ${e.code}');
+      if (kDebugMode) print("Erro ao salvar produto: ${e.message}");
+
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao salvar mesa.',
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+  }
+
+  // Future<String?> addImageFirebase(File img) async {
+  //   final file = File(imageFile.value!.path);
+  //   // gera um nome único para evitar sobrescrita
+  //   final fileName = '${DateTime.now().millisecondsSinceEpoch}${path.extension(file.path)}';
+  //   final storageRef = _storage.ref().child('produtos/$fileName');
+
+  //   String imageUrl;
+  //   try {
+
+  //     final uploadTask = await storageRef.putFile(file);
+  //     imageUrl = await uploadTask.ref.getDownloadURL();
+  //     return imageUrl;
+
+  //   } on FirebaseException catch (e) {
+  //     if (kDebugMode) print("Erro ao fazer upload da imagem: ${e.message}");
+  //     Get.showSnackbar(const GetSnackBar(
+  //       message: 'Falha ao subir imagem.',
+  //       backgroundColor: Colors.red,
+  //     ));
+  //     return null;
+  //   }
+  // }
+
+
+  Future<String?> cacheImageLocally(File img) async {
+    try {
+      final bytes = await img.readAsBytes();
+      final key = 'produtos_${DateTime.now().millisecondsSinceEpoch}${path.extension(img.path)}';
+
+      final File cachedFile = await DefaultCacheManager().putFile(
+        key,
+        bytes,
+        fileExtension: path.extension(img.path).replaceFirst('.', ''), 
+      );
+
+      // Retorna o path do arquivo em cache
+      return cachedFile.path;
+    } catch (e) {
+      if (kDebugMode) print('Erro ao salvar imagem no cache: $e');
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao salvar imagem localmente.',
+        backgroundColor: Colors.red,
+      ));
+      return null;
+    }
   }
 
   Future<void> adicionarMesa() async {
@@ -91,11 +209,14 @@ class ConfigController extends GetxController {
       }
       return;
     }
-
-    mesas.add(MesaModel(
+    
+    MesaModel novaMesa = MesaModel(
       numero: int.tryParse(numMesa.text) ?? 0,
       status: 'disponivel',
-    ));
+    );
+
+    await addMesaFirebase(novaMesa);
+    mesas.add(novaMesa);
 
     Get.back();
     numMesa.clear();
@@ -110,6 +231,56 @@ class ConfigController extends GetxController {
       icon: Icon(Icons.check, color: Colors.white),
     ));
   }
+
+  Future<void> fetchProdutos() async {
+    try {
+      final query = await db.collection('produtos').get();
+      final lista = query.docs.map((doc) {
+        final data = doc.data();
+        return Produto(
+          nomeProduto: data['nomeProduto'] as String,
+          valor:       (data['valor'] as num).toDouble(),
+          categoria:   data['categoria'] as String,
+          image:       data['image'] as String,
+        );
+      }).toList();
+
+      produtos.assignAll(lista);
+
+    } on FirebaseException catch (e) {
+      if (kDebugMode) print('Erro ao buscar produtos: ${e.message}');
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao carregar produtos.',
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      ));
+    }
+  }
+
+  /// Busca todas as mesas da coleção "mesas" e preenche `mesas`.
+  Future<void> fetchMesas() async {
+    try {
+      final query = await db.collection('mesas').get();
+      final lista = query.docs.map((doc) {
+        final data = doc.data();
+        return MesaModel(
+          numero: (data['numeroMesa'] as num).toInt(),
+          status: data['status'] as String,
+        );
+      }).toList();
+
+      mesas.assignAll(lista);
+    } on FirebaseException catch (e) {
+      if (kDebugMode) print('Erro ao buscar mesas: ${e.message}');
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao carregar mesas.',
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      ));
+    }
+  }
+
+
 
   TextField buildTextField(label, textController, context,
       {isPassword = false, bool numeric = false}) {

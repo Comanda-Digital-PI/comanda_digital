@@ -5,8 +5,6 @@ class NavigationController extends GetxController {
   final RxString appBarTitle = 'Home'.obs;
   // final box = GetStorage(); // Instância do GetStorage
 
-
-
   void changePage(int index) {
     selectedIndex.value = index;
 
