@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
-import 'package:flutter_faculdade/app/models/mesa_model.dart';
 
 class MesasScreen extends StatelessWidget {
   const MesasScreen({super.key});
