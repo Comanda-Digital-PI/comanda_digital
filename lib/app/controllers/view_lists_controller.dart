@@ -81,6 +81,7 @@ class ViewListsController extends GetxController {
       await doc.reference.delete();
     }
     produtos.remove(p);
+    filteredList.remove(p);
   }
 
   /// Atualiza um produto (pressupõe nome único como chave)
@@ -107,6 +108,7 @@ class ViewListsController extends GetxController {
     final docId = m.numero.toString();
     await db.collection('mesas').doc(docId).delete();
     mesas.remove(m);
+    filteredList.remove(m);
   }
 
   /// Atualiza uma mesa
