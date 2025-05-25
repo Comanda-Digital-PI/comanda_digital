@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ConfigController extends GetxController {
 
@@ -88,7 +89,7 @@ class ConfigController extends GetxController {
       return;
     }
 
-      final imageUrl = await cacheImageLocally(imageFile.value!);
+      final imageUrl = await saveImagePermanently(imageFile.value!);
       if (imageUrl == null) return; 
     
     await addProductsFirebase(novoProd, imageUrl);
@@ -179,21 +180,29 @@ class ConfigController extends GetxController {
   // }
 
 
-  Future<String?> cacheImageLocally(File img) async {
+  Future<String?> saveImagePermanently(File img) async {
     try {
+      // Lê os bytes originais
       final bytes = await img.readAsBytes();
-      final key = 'produtos_${DateTime.now().millisecondsSinceEpoch}${path.extension(img.path)}';
 
-      final File cachedFile = await DefaultCacheManager().putFile(
-        key,
-        bytes,
-        fileExtension: path.extension(img.path).replaceFirst('.', ''), 
-      );
+      // Descobre o diretório de documentos (permanente) do app
+      final docsDir = await getApplicationDocumentsDirectory();
 
-      // Retorna o path do arquivo em cache
-      return cachedFile.path;
+      // Gera um nome único baseado em timestamp + extensão
+      final fileName =
+          'produtos_${DateTime.now().millisecondsSinceEpoch}${path.extension(img.path)}';
+
+      // Cria o arquivo no documents
+      final newPath = path.join(docsDir.path, fileName);
+      final newFile = File(newPath);
+
+      // Escreve os bytes nesse novo arquivo
+      await newFile.writeAsBytes(bytes, flush: true);
+
+      // Retorna o caminho completo
+      return newPath;
     } catch (e) {
-      if (kDebugMode) print('Erro ao salvar imagem no cache: $e');
+      if (kDebugMode) print('Erro ao salvar imagem permanentemente: $e');
       Get.showSnackbar(const GetSnackBar(
         message: 'Falha ao salvar imagem localmente.',
         backgroundColor: Colors.red,
