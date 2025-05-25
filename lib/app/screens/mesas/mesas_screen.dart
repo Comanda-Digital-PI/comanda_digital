@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/screens/mesas/widgets/card_mesa.dart';
 import 'package:get/get.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 
@@ -7,168 +8,71 @@ class MesasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final controller = Get.find<ConfigController>();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Barra de busca
-          TextField(
-            decoration: InputDecoration(
-              hintText: 'Buscar nº da mesa/comanda',
-              hintStyle: TextStyle(color: Colors.deepPurple.shade900),
-              prefixIcon: Icon(Icons.search, color: Colors.deepPurple.shade900),
-              border: UnderlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor),
-                borderRadius: const BorderRadius.all(Radius.circular(3))
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
-                borderRadius: const BorderRadius.all(Radius.circular(3))
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                  width: 2,
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Barra de busca
+        Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Buscar nº da mesa/comanda',
+                    hintStyle: TextStyle(color: Colors.deepPurple.shade900),
+                    prefixIcon: Icon(Icons.search, color: Colors.deepPurple.shade900),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                      borderRadius: const BorderRadius.all(Radius.circular(3))
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2),
+                      borderRadius: const BorderRadius.all(Radius.circular(3))
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(3))
+                    ),
+                  ),
+                  cursorColor: Theme.of(context).primaryColor,
                 ),
-                borderRadius: const BorderRadius.all(Radius.circular(3))
               ),
             ),
-            cursorColor: Theme.of(context).primaryColor,
-          ),
-          const SizedBox(height: 16),
-          // Grid de mesas
-          Expanded(
+          ],
+        ),
+        const SizedBox(height: 16),
+        // Grid de mesas
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: GridView.builder(
               itemCount: controller.mesas.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 4,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                crossAxisSpacing: 7,
+                mainAxisSpacing: 7,
                 childAspectRatio: 1,
               ),
               itemBuilder: (context, index) {
                 final mesa = controller.mesas[index];
-                return _CardMesa(
+                return CardMesa(
                   numeroMesa: mesa.numero,
                   status: mesa.status,
                 );
               },
             ),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class _LegendaStatus extends StatelessWidget {
-  final Color cor;
-  final String texto;
-
-  const _LegendaStatus({required this.cor, required this.texto});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 15,
-          height: 15,
-          decoration: BoxDecoration(
-            color: cor,
-            borderRadius: BorderRadius.circular(4),
-          ),
         ),
-        const SizedBox(width: 5),
-        Text(texto),
       ],
     );
   }
 }
 
-class _CardMesa extends StatelessWidget {
-  final int numeroMesa;
-  final String status;
 
-  const _CardMesa({required this.numeroMesa, required this.status});
-
-  @override
-  Widget build(BuildContext context) {
-    Color corDeFundo;
-    Widget? destaque;
-
-    switch (status) {
-      case 'disponivel':
-        corDeFundo = Theme.of(context).colorScheme.primary.withOpacity(0.2);
-        destaque = Positioned(
-          top: 6,
-          right: 6,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              'Livre',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        );
-        break;
-      case 'aguardando':
-        corDeFundo = Theme.of(context).colorScheme.primary;
-        destaque = Positioned(
-          top: 6,
-          right: 6,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Text(
-              'Conta!',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 10,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        );
-        break;
-      case 'ocupada':
-      default:
-        corDeFundo = Theme.of(context).colorScheme.primary;
-    }
-
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: corDeFundo,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Center(
-            child: Text(
-              'Mesa $numeroMesa',
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ),
-        if (destaque != null) destaque,
-      ],
-    );
-  }
-}
