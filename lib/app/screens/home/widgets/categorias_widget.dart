@@ -43,7 +43,6 @@ class Categorias extends StatelessWidget {
                           Colors.purple
                         ]
                       ),
-                      // borderRadius: BorderRadius.all(Radius.circular(8))
                     ),
                     child: const Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
