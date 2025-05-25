@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_pages.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/utils/app_bindings.dart';
@@ -12,7 +11,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Get.put(ConfigController());
+  // Get.put(ConfigController());
   runApp(const MyApp());
 }
 
