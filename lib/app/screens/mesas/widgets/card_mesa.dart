@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class CardMesa extends StatelessWidget {
   final int numeroMesa;
   final String status;
+  final VoidCallback onTap;
 
-  const CardMesa({super.key, required this.numeroMesa, required this.status});
+  const CardMesa({
+    super.key, 
+    required this.numeroMesa, 
+    required this.status,
+    required this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +51,13 @@ class CardMesa extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.blue,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Text(
+            child: const Text(
               'Conta!',
               style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
+                color: Colors.white,
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
               ),
@@ -60,6 +66,27 @@ class CardMesa extends StatelessWidget {
         );
         break;
       case 'ocupada':
+        corDeFundo = Theme.of(context).colorScheme.primary;
+        destaque = Positioned(
+          top: 6,
+          right: 6,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Text(
+              'Ocupada',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        );
+        break;
       default:
         corDeFundo = Theme.of(context).colorScheme.primary;
     }
@@ -72,9 +99,7 @@ class CardMesa extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: InkWell(
-            onTap: () {
-              
-            },
+            onTap: onTap,
             child: Center(
               child: Text(
                 'Mesa $numeroMesa',
