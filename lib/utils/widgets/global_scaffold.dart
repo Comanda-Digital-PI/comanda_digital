@@ -6,6 +6,7 @@ import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
 import 'package:flutter_faculdade/app/screens/home/home_screen.dart';
 import 'package:flutter_faculdade/app/screens/mesas/mesas_screen.dart';
 import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
+import 'package:flutter_faculdade/utils/loading.dart';
 import 'package:get/get.dart';
 
 class GlobalScaffold extends StatelessWidget {
@@ -33,18 +34,26 @@ class GlobalScaffold extends StatelessWidget {
           )),
 
           actions: [
+            IconButton(
+              icon: const Icon(Icons.refresh),
+              onPressed: () {
+                LoadingUtils.showLoading();
+                Get.offAllNamed(AppRoutes.globalScaffold);
+                LoadingUtils.hideLoading();
+              },
+            ),
             CircleAvatar(
               backgroundColor: Colors.white,
               child: IconButton(
-                  onPressed: () {
-                    if (kDebugMode) {
-                      print('aaaaaaa');
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.person_2_sharp,
-                    color: Colors.deepPurple,
-                  )),
+                onPressed: () {
+                  if (kDebugMode) {
+                    print('aaaaaaa');
+                  }
+                },
+                icon: const Icon(
+                  Icons.person_2_sharp,
+                  color: Colors.deepPurple,
+                )),
             ),
             IconButton(
               icon: const Icon(Icons.logout),
@@ -61,22 +70,25 @@ class GlobalScaffold extends StatelessWidget {
           ),
           // actionsIconTheme: ,
         ),
-        body: AnimatedSwitcher(
-          duration: const Duration(
-              milliseconds: 200), // Tempo de animação da troca de telas
-          transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          child: IndexedStack(
-            key: ValueKey<int>(_controller.selectedIndex
-                .value), // Permite a transição suave ao mudar a tela
-            index: _controller.selectedIndex.value,
-            children: screens, // Aqui as telas ficam carregadas
-          ),
-        ),
+        body: 
+        Obx(() {
+          return AnimatedSwitcher(
+            duration: const Duration(
+                milliseconds: 200), // Tempo de animação da troca de telas
+            transitionBuilder: (Widget child, Animation<double> animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            child: IndexedStack(
+              key: ValueKey<int>(_controller.selectedIndex
+                  .value), // Permite a transição suave ao mudar a tela
+              index: _controller.selectedIndex.value,
+              children: screens, // Aqui as telas ficam carregadas
+            ),
+          );
+        }),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _controller.selectedIndex.value,
