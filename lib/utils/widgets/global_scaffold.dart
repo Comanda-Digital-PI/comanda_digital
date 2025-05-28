@@ -5,7 +5,7 @@ import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
 import 'package:flutter_faculdade/app/screens/home/home_screen.dart';
 import 'package:flutter_faculdade/app/screens/mesas/mesas_screen.dart';
-import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
+import 'package:flutter_faculdade/app/screens/pedidos/pedidos_screen.dart';
 import 'package:flutter_faculdade/utils/loading.dart';
 import 'package:get/get.dart';
 

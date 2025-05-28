@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
+import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class ProductWidget extends StatelessWidget {
@@ -30,7 +31,12 @@ class ProductWidget extends StatelessWidget {
       ),
       body: 
       Obx(() {
-        if(controller.produtosFiltered.isEmpty){
+        if(controller.isLoading.isTrue) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (controller.produtosFiltered.isEmpty) {
+          
           return const Column(
             children: [
               Expanded(
@@ -61,7 +67,6 @@ class ProductWidget extends StatelessWidget {
             ],
           );
         } else {
-
           return GridView.builder(
             padding: const EdgeInsets.all(10),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -75,34 +80,32 @@ class ProductWidget extends StatelessWidget {
               final produto = controller.produtosFiltered[index];
 
               return Card(
-                elevation: 4,
+                elevation: 3,
                 clipBehavior: Clip.antiAlias,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: InkWell(
-                  onTap: () {
-                    print('aaa');
-                  },
-                  splashColor: Colors.red,
-                  borderRadius: BorderRadius.circular(10), // garante que o splash fique dentro dos limites
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // Foto do produto ocupando a maior parte do card
-                      Expanded(
-                        flex: 4,
-                        child: Image.file(
-                          File(produto.image),
-                          fit: BoxFit.cover,
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Image.file(
+                        File(produto.image),
+                        fit: BoxFit.cover,
                       ),
-                      // Dados do produto
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(5),
+                    ),
+                    Expanded(
+                      flex: 3,
+                      child: Ink(
+                        child: InkWell(
+                          onTap: () {
+                            
+                            Get.toNamed(
+                              AppRoutes.criaPedido,
+                              arguments: [produto],
+                            );
+                          },
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -134,8 +137,8 @@ class ProductWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               );
             },

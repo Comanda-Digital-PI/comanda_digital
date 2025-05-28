@@ -9,4 +9,5 @@ class AppRoutes {
   static const product = '/produtos';
   static const cadastroMesa = '/cadastro-mesa';
   static const viewLists = '/visualizar-listas';
+  static const criaPedido = '/cria-pedido';
 }

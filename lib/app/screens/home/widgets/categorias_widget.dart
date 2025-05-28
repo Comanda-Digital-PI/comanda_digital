@@ -29,8 +29,7 @@ class Categorias extends StatelessWidget {
                 margin:  const EdgeInsets.all(10),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Pratos';
-                    controller.produtosFiltered.value = controller.produtos.where((i) => i.categoria == 'Pratos').toList();
+                    controller.showProduct('Pratos');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(
@@ -94,8 +93,7 @@ class Categorias extends StatelessWidget {
                 margin:  const EdgeInsets.all(10),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Bebidas';
-                    controller.produtosFiltered.value = controller.produtos.where((i) => i.categoria == 'Bebidas').toList();
+                    controller.showProduct('Bebidas');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(
@@ -163,8 +161,7 @@ class Categorias extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Aperitivos';
-                    controller.produtosFiltered.value = controller.produtos.where((i) => i.categoria == 'Aperitivos').toList();
+                    controller.showProduct('Aperitivos');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(
@@ -214,8 +211,7 @@ class Categorias extends StatelessWidget {
                 margin:  const EdgeInsets.all(8),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Drinks';
-                    controller.produtosFiltered.value = controller.produtos.where((i) => i.categoria == 'Drinks').toList();
+                    controller.showProduct('Drinks');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(
@@ -266,8 +262,7 @@ class Categorias extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Sobremesas';
-                    controller.produtosFiltered.value = controller.produtos.where((i) => i.categoria == 'Sobremesas').toList();
+                    controller.showProduct('Sobremesas');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(
@@ -318,8 +313,7 @@ class Categorias extends StatelessWidget {
                 margin:  const EdgeInsets.all(8),
                 child: InkWell(
                   onTap: () {
-                    controller.appBarTitle.value = 'Cardápio';
-                    controller.produtosFiltered.value = controller.produtos.value.toList();
+                    controller.showProduct('Cardapio');
                     Get.toNamed(AppRoutes.product);
                   },
                   child: Ink(

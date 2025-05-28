@@ -29,6 +29,7 @@ class ConfigController extends GetxController {
   final RxList<Produto> produtos = <Produto>[].obs;
   final RxList<Produto> produtosFiltered = <Produto>[].obs;
   final RxList<MesaModel> mesas = <MesaModel>[].obs;
+  final RxBool isLoading = false.obs; 
 
   final ImagePicker _picker = ImagePicker();
   final List<Map<String, dynamic>> categorias = [
@@ -40,10 +41,12 @@ class ConfigController extends GetxController {
   ];
 
   @override
-  void onInit() async {
+  void onInit() async {    
     super.onInit();
+    isLoading.value = true;
     await fetchProdutos();
     await fetchMesas();
+    isLoading.value = false;
   }
 
 
@@ -266,7 +269,14 @@ class ConfigController extends GetxController {
     }
   }
 
-  /// Busca todas as mesas da coleção "mesas" e preenche `mesas`.
+  Future<void> showProduct(String categoria) async {
+    isLoading.value = true;
+    appBarTitle.value = categoria;
+    await fetchProdutos();
+    produtosFiltered.value = produtos.where((i) => categoria != 'Cardapio' ? i.categoria == categoria : 1==1).toList();
+    isLoading.value = false;
+  }
+
   Future<void> fetchMesas() async {
     try {
       final query = await db.collection('mesas').get();
