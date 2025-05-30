@@ -233,10 +233,7 @@ class CriaPedidoScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Get.off(() => ProductWidget<ConfigController>(
-                            controller: configController,
-                            title: 'Pratos',
-                          ));
+                          Get.back();
                         },  
                         label: const Text(
                           'Cancelar Pedido',

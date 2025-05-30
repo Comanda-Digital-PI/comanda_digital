@@ -98,7 +98,10 @@ class Categorias extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.showProduct('Bebidas');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Bebidas',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(
@@ -166,7 +169,10 @@ class Categorias extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.showProduct('Aperitivos');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Aperitivos',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(
@@ -216,7 +222,10 @@ class Categorias extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.showProduct('Drinks');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Drinks',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(
@@ -267,7 +276,10 @@ class Categorias extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.showProduct('Sobremesas');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Sobremesas',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(
@@ -316,9 +328,12 @@ class Categorias extends StatelessWidget {
                 ),
                 margin:  const EdgeInsets.all(8),
                 child: InkWell(
-                  onTap: () {
+                   onTap: () {
                     controller.showProduct('Cardapio');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Cardapio',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(
