@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
+import 'package:flutter_faculdade/app/screens/home/widgets/product_widget.dart';
 import 'package:flutter_svg_icons/flutter_svg_icons.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,10 @@ class Categorias extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.showProduct('Pratos');
-                    Get.toNamed(AppRoutes.product);
+                    Get.to(() => ProductWidget<ConfigController>(
+                      controller: controller,
+                      title: 'Pratos',
+                    ));
                   },
                   child: Ink(
                     decoration: const BoxDecoration(

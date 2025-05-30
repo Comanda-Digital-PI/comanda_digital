@@ -1,3 +1,4 @@
+import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/controllers/navigation_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
@@ -33,7 +34,15 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.product,
-      page: () =>  ProductWidget(),
+      page: () {
+        // pega o ConfigController que já existe
+        final cfg = Get.find<ConfigController>();
+        // passa direto pro seu widget
+        return ProductWidget<ConfigController>(
+          controller: cfg,
+          title: cfg.appBarTitle.value,
+        );
+      },
     ),
     GetPage(
       name: AppRoutes.pedidos,

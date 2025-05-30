@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_faculdade/app/controllers/base_products_controller.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:flutter_faculdade/app/models/mesa_model.dart';
 import 'package:flutter_faculdade/app/screens/configs/widgets/image_selector.dart';
@@ -13,21 +14,18 @@ import 'package:path/path.dart' as path;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ConfigController extends GetxController {
+class ConfigController extends BaseProductsController
+  with ProductsMixin {
 
   final TextEditingController nomeProduto = TextEditingController();
   final TextEditingController numMesa = TextEditingController();
   final TextEditingController valorProduto = TextEditingController();
-
-  final db = FirebaseFirestore.instance;
 
   final Rx<File?> imageFile = Rx<File?>(null);
   final RxString tipoBottomSheet = ''.obs;
   final RxString labelBottomSheet = ''.obs;
   final RxString appBarTitle = ''.obs;
   final RxnString categoriaSelecionada = RxnString();
-  final RxList<Produto> produtos = <Produto>[].obs;
-  final RxList<Produto> produtosFiltered = <Produto>[].obs;
   final RxList<MesaModel> mesas = <MesaModel>[].obs;
   final RxBool isLoading = false.obs; 
 
@@ -159,28 +157,6 @@ class ConfigController extends GetxController {
     }
   }
 
-  // Future<String?> addImageFirebase(File img) async {
-  //   final file = File(imageFile.value!.path);
-  //   // gera um nome único para evitar sobrescrita
-  //   final fileName = '${DateTime.now().millisecondsSinceEpoch}${path.extension(file.path)}';
-  //   final storageRef = _storage.ref().child('produtos/$fileName');
-
-  //   String imageUrl;
-  //   try {
-
-  //     final uploadTask = await storageRef.putFile(file);
-  //     imageUrl = await uploadTask.ref.getDownloadURL();
-  //     return imageUrl;
-
-  //   } on FirebaseException catch (e) {
-  //     if (kDebugMode) print("Erro ao fazer upload da imagem: ${e.message}");
-  //     Get.showSnackbar(const GetSnackBar(
-  //       message: 'Falha ao subir imagem.',
-  //       backgroundColor: Colors.red,
-  //     ));
-  //     return null;
-  //   }
-  // }
 
 
   Future<String?> saveImagePermanently(File img) async {
@@ -244,30 +220,30 @@ class ConfigController extends GetxController {
     ));
   }
 
-  Future<void> fetchProdutos() async {
-    try {
-      final query = await db.collection('produtos').get();
-      final lista = query.docs.map((doc) {
-        final data = doc.data();
-        return Produto(
-          nomeProduto: data['nomeProduto'] as String,
-          valor:       (data['valor'] as num).toDouble(),
-          categoria:   data['categoria'] as String,
-          image:       data['image'] as String,
-        );
-      }).toList();
+  // Future<void> fetchProdutos() async {
+  //   try {
+  //     final query = await db.collection('produtos').get();
+  //     final lista = query.docs.map((doc) {
+  //       final data = doc.data();
+  //       return Produto(
+  //         nomeProduto: data['nomeProduto'] as String,
+  //         valor:       (data['valor'] as num).toDouble(),
+  //         categoria:   data['categoria'] as String,
+  //         image:       data['image'] as String,
+  //       );
+  //     }).toList();
 
-      produtos.assignAll(lista);
+  //     produtos.assignAll(lista);
 
-    } on FirebaseException catch (e) {
-      if (kDebugMode) print('Erro ao buscar produtos: ${e.message}');
-      Get.showSnackbar(const GetSnackBar(
-        message: 'Falha ao carregar produtos.',
-        backgroundColor: Colors.red,
-        duration: Duration(seconds: 3),
-      ));
-    }
-  }
+  //   } on FirebaseException catch (e) {
+  //     if (kDebugMode) print('Erro ao buscar produtos: ${e.message}');
+  //     Get.showSnackbar(const GetSnackBar(
+  //       message: 'Falha ao carregar produtos.',
+  //       backgroundColor: Colors.red,
+  //       duration: Duration(seconds: 3),
+  //     ));
+  //   }
+  // }
 
   Future<void> showProduct(String categoria) async {
     isLoading.value = true;

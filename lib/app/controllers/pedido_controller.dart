@@ -1,10 +1,15 @@
+import 'dart:ui';
+
+import 'package:flutter_faculdade/app/controllers/base_products_controller.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/models/mesa_model.dart';
 import 'package:flutter_faculdade/app/models/pedido_model.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 
-class PedidoController  extends GetxController {
+class PedidoController  extends BaseProductsController
+  with ProductsMixin {
 
 
 // para um único produto
@@ -37,11 +42,16 @@ class PedidoController  extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    _initTudo();
+  }
+
+  Future<void> _initTudo() async {
     isLoading.value = true;
     _loadProdutosFromArguments();
-    iniciaPedido();
-    await _fetchMesas();
-    isLoading.value = false;
+    await fetchProdutos();     // do ProductsMixin
+    await _fetchMesas();       // seu método
+    iniciaPedido();   
+    isLoading.value = false;         // seu método
   }
 
   void _loadProdutosFromArguments() {
@@ -79,6 +89,7 @@ class PedidoController  extends GetxController {
   }
 
   void iniciaPedido() {
+    print(pedidoDraft);
     // 1) corrige quantidades inválidas
     for (var item in produtosSelecionados) {
       final q = item['quantidade'];
@@ -107,6 +118,51 @@ class PedidoController  extends GetxController {
     
     print(pedidoDraft);
   }
+
+  Future<void> adicionarProdutoAoPedido(Produto p) async {
+    // procura se já há esse produto na lista
+    final idx = produtosSelecionados.indexWhere((e) => e['produto'] == p);
+    if (idx >= 0) {
+      // incrementa a quantidade
+      final current = produtosSelecionados[idx]['quantidade'] as int;
+      produtosSelecionados[idx]['quantidade'] = current + 1;
+    } else {
+      // adiciona novo item com quantidade 1
+      produtosSelecionados.add({
+        'produto': p,
+        'quantidade': 1,
+      });
+    }
+    // atualiza observáveis e recalcúla o draft
+    produtosSelecionados.refresh();
+    iniciaPedido();
+  }
+
+
+  void alteraQuantidade(int index, int novaQtd) {
+    if (novaQtd < 1) {
+      produtosSelecionados.removeAt(index);
+    } else {
+      produtosSelecionados[index]['quantidade'] = novaQtd;
+    }
+    produtosSelecionados.refresh();
+    iniciaPedido(); 
+  }
+
+  /// Atalho específico para diminuir quantidade em 1 lugar
+  void diminuirQuantidade(int index) {
+    final current = produtosSelecionados[index]['quantidade'] as int;
+    alteraQuantidade(index, current - 1);
+  }
+
+  /// Atalho específico para aumentar quantidade em 1 lugar
+  void aumentarQuantidade(int index) {
+    final current = produtosSelecionados[index]['quantidade'] as int;
+    alteraQuantidade(index, current + 1);
+  }
+
+  
+
   
   
 }
