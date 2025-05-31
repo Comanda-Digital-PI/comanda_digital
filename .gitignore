@@ -1,50 +1,90 @@
+# ==========================================
+#  Ignorar arquivos temporários / de build
+# ==========================================
+
+# Dart/Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+**/doc/api/
+pubspec.lock
+
+# Gerados pelo flutter_native_splash ou flutter_launcher_icons (se usados)
+.flutter-plugins
+.gen/                   # pasta que algumas ferramentas plugins criam
+.flutter-plugins-dependencies
+
+# Android/Gradle
+android/.gradle/
+android/build/
+android/app/.cxx/
+android/app/build/
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/local.properties
+android/*.keystore           # se você tiver keystores versão-local (opcional)
+android/.idea/               # caso seu Android Studio crie uma pasta .idea aqui
+android/**/*.lock            # arquivos de lock dentro de android
+
+# Ignorar arquivos de configuração de fingerprint gerados pelo Gradle
+android/app/**/configure_fingerprint*.bin
+android/app/**/configure_*.bin
+
+# IntelliJ / Android Studio
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code (descomente se quiser ignorar suas próprias configurações do VS Code)
+# .vscode/
+
+# Xcode (iOS/macOS)
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Runner.xcworkspace/
+ios/Runner/GeneratedPluginRegistrant.*
+xcuserdata/
+*.xcuserstate
+*.xcworkspace
+DerivedData/
+*.moved-aside
+*.xcassets/
+
 # Miscellaneous
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
-.atom/
+.history
 .build/
 .buildlog/
-.history
 .svn/
 .swiftpm/
 migrate_working_dir/
+*.lock
 
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-
-# Symbolication related
-app.*.symbols
-
-# Obfuscation related
-app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
-
-# FVM Version Cache
+# FVM (Flutter version manager)
 .fvm/
 
-pubspec.lock
+# Arquivos temporários de cache ou artefatos adicionais
+*.tmp
+*.cache
+*.sw?      # *.swp, *.swo etc.
+
+# Git Hooks (se você não quiser versionar hooks locais, descomente abaixo)
+# .git/hooks/
+
+# Outros diretórios/pastas comuns de IDE/editor
+# Adicione aqui caso precise ignorar outras pastas específicas da sua IDE
+# Exemplo:
+# .vscode/
+
