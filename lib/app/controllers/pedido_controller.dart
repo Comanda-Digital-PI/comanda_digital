@@ -1,12 +1,17 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/base_products_controller.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/models/mesa_model.dart';
 import 'package:flutter_faculdade/app/models/pedido_model.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
+import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/list_notifier.dart';
+import 'package:get_storage/get_storage.dart';
 
 class PedidoController  extends BaseProductsController
   with ProductsMixin {
@@ -89,7 +94,6 @@ class PedidoController  extends BaseProductsController
   }
 
   void iniciaPedido() {
-    print(pedidoDraft);
     // 1) corrige quantidades inválidas
     for (var item in produtosSelecionados) {
       final q = item['quantidade'];
@@ -116,7 +120,6 @@ class PedidoController  extends BaseProductsController
       produtos: produtosSelecionados.toList(),
     );
     
-    print(pedidoDraft);
   }
 
   Future<void> adicionarProdutoAoPedido(Produto p) async {
@@ -161,8 +164,104 @@ class PedidoController  extends BaseProductsController
     alteraQuantidade(index, current + 1);
   }
 
-  
+  Future<void> criarPedido() async {
+    isLoading.value = true;
+    if(mesaSelecionada.value == null) {
+      showError('É necessário informar a mesa para concluir o pedido');
+      return;
+    }
+
+    final atual = pedidoDraft.value;
+    final numeroMesa = mesaSelecionada.value!.split(' ');
+    pedidoDraft.value = atual!.copyWith(
+      numeroMesa: int.parse(numeroMesa[0]),
+    );
+
+    await savePedidos(pedidoDraft.value!);
+    isLoading.value = false;
+  }
+
+  Future<void> savePedidos(PedidoModel pedido) async {
+    try {
+
+      int numpedido = await getNextNumeroPedido();
+
+      if(numpedido == 0) {
+        showError('Erro ao buscar o próximo número do pedido');
+        return;
+      } 
+
+      final dados = {
+        'numeroPedido': numpedido,
+        'status': pedido.status,
+        'numeroMesa': mesaSelecionada.value,
+        'valorTotal': pedido.valorTotal,
+        'produtos': pedido.produtos.map((item) {
+          return {
+            'nomeProduto': (item['produto'] as dynamic).nomeProduto,
+            'valor': (item['produto'] as dynamic).valor,
+            'quantidade': item['quantidade'] as int,
+            'categoria': (item['produto'] as dynamic).categoria,
+            'image': (item['produto'] as dynamic).image,
+          };
+        }).toList(),
+      };
+
+      await db.collection('pedidos').doc(numpedido.toString()).set(dados);
+
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Pedido salvo com sucesso!',
+        backgroundColor: Colors.green,
+        duration: Duration(seconds: 2),
+      ));
+
+      Get.offAllNamed(AppRoutes.globalScaffold);
+    
+    } on FirebaseException catch (e) {
+      if (kDebugMode) print("Erro ao salvar produto: ${e.message}");
+
+      Get.showSnackbar(const GetSnackBar(
+        message: 'Falha ao salvar pedido.',
+        backgroundColor: Colors.red,
+      ));
+      return;
+    }
+  }
+
+  Future<int> getNextNumeroPedido() async {
+    try {
+      final query = await db
+        .collection('pedidos')
+        .orderBy('numeroPedido', descending: true)
+        .limit(1)
+        .get();
+
+      if (query.docs.isEmpty) {
+        return 1;
+      } else {
+        final maior = query.docs.first.data()['numeroPedido'] as int;
+        return maior + 1;
+      }
+    } on FirebaseException catch (e) {
+      if (kDebugMode) print('Erro ao buscar próximo ID: ${e.message}');
+      return 0; // fallback
+    }
+  }
 
   
-  
+  void showError(String message) {
+
+    Get.showSnackbar(GetSnackBar(
+      message: message,
+      duration: const Duration(seconds: 5),
+      backgroundColor: Colors.red,
+      snackPosition: SnackPosition.TOP,
+      margin: const EdgeInsets.all(10),
+      borderRadius: 8,
+      icon: const Icon(Icons.error, color: Colors.white),
+    ));
+    
+    
+  }
+
 }

@@ -22,6 +22,12 @@ class CriaPedidoScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: Obx(() {
+
+        final pedido = controller.pedidoDraft.value;
+        final totalTexto = pedido == null
+          ? 'R\$ 0,00'
+          : 'R\$ ${pedido.valorTotal.toStringAsFixed(2)}';
+
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
@@ -102,74 +108,93 @@ class CriaPedidoScreen extends StatelessWidget {
                                       final item = controller.produtosSelecionados[index];
                                       final produto = item['produto'] as Produto;
                                       final qtd = item['quantidade'] as int;
-                                      return ListTile(
-                                        // contentPadding: EdgeInsets.zero,
-                                        // dense: true,
-                                        tileColor: Colors.grey.shade100,
-                                        
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(Radius.circular(7))
-                                          
-                                        ),
-                                        title: Text(
-                                          produto.nomeProduto,
-                                          style: const TextStyle(fontWeight: FontWeight.bold),
-                                        ),
-                                        subtitle: Text('R\$ ${produto.valor.toStringAsFixed(2)} x $qtd'),
-                                        trailing: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            IconButton(
-                                              icon: const Icon(Icons.remove_circle_outline),
-                                              onPressed: () => controller.diminuirQuantidade(index),
-                                            ),
-                                            Text(qtd.toString()),
-                                            IconButton(
-                                              icon: const Icon(Icons.add_circle_outline),
-                                              onPressed: () => controller.aumentarQuantidade(index),
-                                            ),
-                                          ],
+                                      return Card(
+                                        elevation: 3,
+                                        child: ListTile(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(7))
+                                          ),
+                                          title: Text(
+                                            produto.nomeProduto,
+                                            style: const TextStyle(fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Text('R\$ ${produto.valor.toStringAsFixed(2)} x $qtd'),
+                                          trailing: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              IconButton(
+                                                icon: const Icon(Icons.remove_circle_outline),
+                                                onPressed: () => controller.diminuirQuantidade(index),
+                                              ),
+                                              Text(qtd.toString()),
+                                              IconButton(
+                                                icon: const Icon(Icons.add_circle_outline),
+                                                onPressed: () => controller.aumentarQuantidade(index),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },
                                   ),
                               ),
                             ),
-                            Row(
+                            Column(
                               children: [
-                                Expanded(
-                                  child: ElevatedButton.icon(
-                                    onPressed: () async {
-                                        final Produto? novo = await Get.to(
-                                          () => ProductWidget<PedidoController>(
-                                            controller: controller,
-                                            title: 'Adicionar Item',
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ListTile(
+                                        title: Text(
+                                          'Subtotal:'
+                                        ),
+                                        trailing: Text(
+                                          totalTexto,
+                                          style: TextStyle(
+                                            fontSize: 20
                                           ),
-                                        );
-                                        if (novo != null) {
-                                          controller.adicionarProdutoAoPedido(novo);
-                                        }
-                                    },
-                                    icon: const Icon(
-                                      Icons.add,
-                                      size: 25,
-                                      color: Colors.white,
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.deepPurple,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(Radius.circular(7))
-                                      )
-                                    ),
-                                   label: const Text(
-                                    'Adicionar Produto',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      
-                                    ),
-                                   )
-                                  ),
-                                )
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton.icon(
+                                        onPressed: () async {
+                                            final Produto? novo = await Get.to(
+                                              () => ProductWidget<PedidoController>(
+                                                controller: controller,
+                                                title: 'Adicionar Item',
+                                              ),
+                                            );
+                                            if (novo != null) {
+                                              controller.adicionarProdutoAoPedido(novo);
+                                            }
+                                        },
+                                        icon: const Icon(
+                                          Icons.add,
+                                          size: 25,
+                                          color: Colors.white,
+                                        ),
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.deepPurple,
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(Radius.circular(7))
+                                          )
+                                        ),
+                                       label: const Text(
+                                        'Adicionar Produto',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          
+                                        ),
+                                       )
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ],
                             )
                           ],
@@ -196,6 +221,7 @@ class CriaPedidoScreen extends StatelessWidget {
                         decoration: const InputDecoration(
                           labelText: 'Mesa',
                           border: InputBorder.none,
+                          hintText: 'Selecionar mesa' 
                         ),
                         value: controller.mesaSelecionada.value,
                         items: controller.mesas.map((mesa) {
@@ -257,17 +283,9 @@ class CriaPedidoScreen extends StatelessWidget {
                           Icons.check_circle,
                           color: Colors.white,
                         ),
-                        onPressed: () {
-                          if (controller.produtosSelecionados.isEmpty ||
-                              controller.mesaSelecionada.value == null) {
-                            Get.snackbar(
-                              'Ops',
-                              'Selecione ao menos um item e uma mesa antes de concluir.',
-                              backgroundColor: Colors.redAccent,
-                              colorText: Colors.white,
-                            );
-                            return;
-                          }
+                        onPressed: () async {
+                          await controller.criarPedido();
+                
                           // controller.concluirPedido();
                         },
                         label: const Text(

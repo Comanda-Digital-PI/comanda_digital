@@ -37,7 +37,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
@@ -104,7 +104,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration:  BoxDecoration(
+                    decoration:  const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
@@ -175,7 +175,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration:  BoxDecoration(
+                    decoration:  const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
@@ -228,7 +228,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
@@ -282,7 +282,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
@@ -336,7 +336,7 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
