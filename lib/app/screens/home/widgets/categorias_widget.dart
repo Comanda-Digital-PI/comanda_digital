@@ -37,13 +37,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                     ),
@@ -104,13 +104,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                     ),
@@ -175,13 +175,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration:  BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                     ),
@@ -228,13 +228,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8))
@@ -282,13 +282,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8))
@@ -336,13 +336,13 @@ class Categorias extends StatelessWidget {
                     ));
                   },
                   child: Ink(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple
                         ]
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8))

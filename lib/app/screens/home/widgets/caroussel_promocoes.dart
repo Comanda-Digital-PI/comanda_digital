@@ -53,19 +53,37 @@ class CarouselPromocoes extends StatelessWidget {
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
-                child: const Center(child: Text('Teste 1')),
+                child: AspectRatio(
+                  aspectRatio: 4/3, // largura == altura
+                  child: Image.asset(
+                    'assets/destaques/chope_dobro.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
-                child: const Center(child: Text('Teste 2')),
+                child: AspectRatio(
+                  aspectRatio: 4/3, // largura == altura
+                  child: Image.asset(
+                    'assets/destaques/combo_burger.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
-            
-                child: const Center(child: Text('Teste 3')),
+                child: AspectRatio(
+                  aspectRatio: 4/3, // largura == altura
+                  child: Image.asset(
+                    'assets/destaques/combo_pizza.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
+              
             ],
           ),
         ),

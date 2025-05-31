@@ -31,8 +31,8 @@ class ConfigScreen extends StatelessWidget {
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple,
                         ],
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -87,8 +87,8 @@ class ConfigScreen extends StatelessWidget {
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple,
                         ],
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -141,8 +141,8 @@ class ConfigScreen extends StatelessWidget {
                         begin: AlignmentDirectional.topStart,
                         end: AlignmentDirectional.bottomEnd,
                         colors: [
+                          Colors.deepPurple,
                           Colors.deepPurpleAccent,
-                          Colors.purple,
                         ],
                       ),
                       borderRadius: BorderRadius.all(Radius.circular(8)),
