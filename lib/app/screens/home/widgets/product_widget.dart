@@ -2,6 +2,7 @@
 
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/controllers/cria_pedido_controller.dart';
 import 'package:flutter_faculdade/app/controllers/pedido_controller.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
 import 'package:get/get.dart';
@@ -93,7 +94,7 @@ class ProductWidget<C extends BaseProductsController> extends StatelessWidget {
                                 final Produto escolhido = p;
                                 // Se já existe um PedidoController vivo na stack, 
                                 // significa que estamos dentro de CriaPedidoScreen:
-                                if (Get.isRegistered<PedidoController>()) {
+                                if (Get.isRegistered<CriaPedidoController>()) {
                                   // volta para CriaPedidoScreen passando o produto
                                   Get.back(result: escolhido);
                                 } else {

@@ -20,6 +20,8 @@ mixin _$PedidoModel {
   int get numeroMesa;
   double get valorTotal;
   List<dynamic> get produtos;
+  DateTime get dataAbertura;
+  DateTime? get dataFechamento;
 
   /// Create a copy of PedidoModel
   /// with the given fields replaced by the non-null parameter values.
@@ -40,16 +42,27 @@ mixin _$PedidoModel {
                 other.numeroMesa == numeroMesa) &&
             (identical(other.valorTotal, valorTotal) ||
                 other.valorTotal == valorTotal) &&
-            const DeepCollectionEquality().equals(other.produtos, produtos));
+            const DeepCollectionEquality().equals(other.produtos, produtos) &&
+            (identical(other.dataAbertura, dataAbertura) ||
+                other.dataAbertura == dataAbertura) &&
+            (identical(other.dataFechamento, dataFechamento) ||
+                other.dataFechamento == dataFechamento));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, numeroPedido, status, numeroMesa,
-      valorTotal, const DeepCollectionEquality().hash(produtos));
+  int get hashCode => Object.hash(
+      runtimeType,
+      numeroPedido,
+      status,
+      numeroMesa,
+      valorTotal,
+      const DeepCollectionEquality().hash(produtos),
+      dataAbertura,
+      dataFechamento);
 
   @override
   String toString() {
-    return 'PedidoModel(numeroPedido: $numeroPedido, status: $status, numeroMesa: $numeroMesa, valorTotal: $valorTotal, produtos: $produtos)';
+    return 'PedidoModel(numeroPedido: $numeroPedido, status: $status, numeroMesa: $numeroMesa, valorTotal: $valorTotal, produtos: $produtos, dataAbertura: $dataAbertura, dataFechamento: $dataFechamento)';
   }
 }
 
@@ -64,7 +77,9 @@ abstract mixin class $PedidoModelCopyWith<$Res> {
       String status,
       int numeroMesa,
       double valorTotal,
-      List<dynamic> produtos});
+      List<dynamic> produtos,
+      DateTime dataAbertura,
+      DateTime? dataFechamento});
 }
 
 /// @nodoc
@@ -84,6 +99,8 @@ class _$PedidoModelCopyWithImpl<$Res> implements $PedidoModelCopyWith<$Res> {
     Object? numeroMesa = null,
     Object? valorTotal = null,
     Object? produtos = null,
+    Object? dataAbertura = null,
+    Object? dataFechamento = freezed,
   }) {
     return _then(_self.copyWith(
       numeroPedido: null == numeroPedido
@@ -106,6 +123,14 @@ class _$PedidoModelCopyWithImpl<$Res> implements $PedidoModelCopyWith<$Res> {
           ? _self.produtos
           : produtos // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      dataAbertura: null == dataAbertura
+          ? _self.dataAbertura
+          : dataAbertura // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      dataFechamento: freezed == dataFechamento
+          ? _self.dataFechamento
+          : dataFechamento // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -118,7 +143,9 @@ class _PedidoModel implements PedidoModel {
       required this.status,
       required this.numeroMesa,
       required this.valorTotal,
-      required final List<dynamic> produtos})
+      required final List<dynamic> produtos,
+      required this.dataAbertura,
+      required this.dataFechamento})
       : _produtos = produtos;
 
   @override
@@ -136,6 +163,11 @@ class _PedidoModel implements PedidoModel {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_produtos);
   }
+
+  @override
+  final DateTime dataAbertura;
+  @override
+  final DateTime? dataFechamento;
 
   /// Create a copy of PedidoModel
   /// with the given fields replaced by the non-null parameter values.
@@ -157,16 +189,27 @@ class _PedidoModel implements PedidoModel {
                 other.numeroMesa == numeroMesa) &&
             (identical(other.valorTotal, valorTotal) ||
                 other.valorTotal == valorTotal) &&
-            const DeepCollectionEquality().equals(other._produtos, _produtos));
+            const DeepCollectionEquality().equals(other._produtos, _produtos) &&
+            (identical(other.dataAbertura, dataAbertura) ||
+                other.dataAbertura == dataAbertura) &&
+            (identical(other.dataFechamento, dataFechamento) ||
+                other.dataFechamento == dataFechamento));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, numeroPedido, status, numeroMesa,
-      valorTotal, const DeepCollectionEquality().hash(_produtos));
+  int get hashCode => Object.hash(
+      runtimeType,
+      numeroPedido,
+      status,
+      numeroMesa,
+      valorTotal,
+      const DeepCollectionEquality().hash(_produtos),
+      dataAbertura,
+      dataFechamento);
 
   @override
   String toString() {
-    return 'PedidoModel(numeroPedido: $numeroPedido, status: $status, numeroMesa: $numeroMesa, valorTotal: $valorTotal, produtos: $produtos)';
+    return 'PedidoModel(numeroPedido: $numeroPedido, status: $status, numeroMesa: $numeroMesa, valorTotal: $valorTotal, produtos: $produtos, dataAbertura: $dataAbertura, dataFechamento: $dataFechamento)';
   }
 }
 
@@ -183,7 +226,9 @@ abstract mixin class _$PedidoModelCopyWith<$Res>
       String status,
       int numeroMesa,
       double valorTotal,
-      List<dynamic> produtos});
+      List<dynamic> produtos,
+      DateTime dataAbertura,
+      DateTime? dataFechamento});
 }
 
 /// @nodoc
@@ -203,6 +248,8 @@ class __$PedidoModelCopyWithImpl<$Res> implements _$PedidoModelCopyWith<$Res> {
     Object? numeroMesa = null,
     Object? valorTotal = null,
     Object? produtos = null,
+    Object? dataAbertura = null,
+    Object? dataFechamento = freezed,
   }) {
     return _then(_PedidoModel(
       numeroPedido: null == numeroPedido
@@ -225,6 +272,14 @@ class __$PedidoModelCopyWithImpl<$Res> implements _$PedidoModelCopyWith<$Res> {
           ? _self._produtos
           : produtos // ignore: cast_nullable_to_non_nullable
               as List<dynamic>,
+      dataAbertura: null == dataAbertura
+          ? _self.dataAbertura
+          : dataAbertura // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      dataFechamento: freezed == dataFechamento
+          ? _self.dataFechamento
+          : dataFechamento // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/controllers/config_controller.dart';
+import 'package:flutter_faculdade/app/controllers/cria_pedido_controller.dart';
 import 'package:flutter_faculdade/app/controllers/pedido_controller.dart';
 import 'package:flutter_faculdade/app/models/produto_model.dart';
+import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/app/screens/home/widgets/product_widget.dart';
 import 'package:get/get.dart';
 
 class CriaPedidoScreen extends StatelessWidget {
   CriaPedidoScreen({Key? key}) : super(key: key);
 
-  final PedidoController controller = Get.put(PedidoController());
+  final CriaPedidoController controller = Get.put(CriaPedidoController());
   final ConfigController configController = Get.find<ConfigController>();
 
   @override
@@ -63,7 +65,7 @@ class CriaPedidoScreen extends StatelessWidget {
                                   child: ElevatedButton.icon(
                                     onPressed: () async {
                                         final Produto? novo = await Get.to(
-                                          () => ProductWidget<PedidoController>(
+                                          () => ProductWidget<CriaPedidoController>(
                                             controller: controller,
                                             title: 'Adicionar Item',
                                           ),
@@ -164,7 +166,7 @@ class CriaPedidoScreen extends StatelessWidget {
                                       child: ElevatedButton.icon(
                                         onPressed: () async {
                                             final Produto? novo = await Get.to(
-                                              () => ProductWidget<PedidoController>(
+                                              () => ProductWidget<CriaPedidoController>(
                                                 controller: controller,
                                                 title: 'Adicionar Item',
                                               ),
@@ -259,7 +261,7 @@ class CriaPedidoScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          Get.back();
+                          Get.offAllNamed(AppRoutes.globalScaffold);
                         },  
                         label: const Text(
                           'Cancelar Pedido',

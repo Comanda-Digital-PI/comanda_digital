@@ -11,6 +11,8 @@ abstract class PedidoModel with _$PedidoModel {
     required int numeroMesa,
     required double valorTotal,
     required List<dynamic> produtos,
+    required DateTime dataAbertura,
+    required DateTime? dataFechamento
 
   }) = _PedidoModel;
 }
