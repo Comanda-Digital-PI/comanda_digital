@@ -171,6 +171,7 @@ class CriaPedidoController  extends BaseProductsController
   Future<void> criarPedido() async {
     isLoading.value = true;
     if(mesaSelecionada.value == null) {
+      isLoading.value = false;
       showError('É necessário informar a mesa para concluir o pedido');
       return;
     }
@@ -191,6 +192,7 @@ class CriaPedidoController  extends BaseProductsController
       int numpedido = await getNextNumeroPedido();
 
       if(numpedido == 0) {
+        isLoading.value = false;
         showError('Erro ao buscar o próximo número do pedido');
         return;
       } 
