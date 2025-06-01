@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CarouselPromocoes extends StatelessWidget {
   const CarouselPromocoes({
@@ -53,10 +54,14 @@ class CarouselPromocoes extends StatelessWidget {
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))
+                ),
+                clipBehavior: Clip.antiAlias,
                 child: AspectRatio(
                   aspectRatio: 4/3, // largura == altura
                   child: Image.asset(
-                    'assets/destaques/chope_dobro.png',
+                    'assets/destaques/combo_chope.png',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -64,6 +69,10 @@ class CarouselPromocoes extends StatelessWidget {
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))
+                ),
+                clipBehavior: Clip.antiAlias,
                 child: AspectRatio(
                   aspectRatio: 4/3, // largura == altura
                   child: Image.asset(
@@ -75,6 +84,10 @@ class CarouselPromocoes extends StatelessWidget {
               Card(
                 elevation: 3,
                 color: Colors.grey.shade300,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(7))
+                ),
+                clipBehavior: Clip.antiAlias,
                 child: AspectRatio(
                   aspectRatio: 4/3, // largura == altura
                   child: Image.asset(
