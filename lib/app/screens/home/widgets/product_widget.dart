@@ -111,7 +111,16 @@ class ProductWidget<C extends BaseProductsController> extends StatelessWidget {
                               children: [
                                 Expanded(
                                   flex: 4,
-                                  child: Image.file(File(p.image), fit: BoxFit.cover),
+                                  child: Image.file(
+                                    File(p.image), 
+                                    fit: BoxFit.cover, 
+                                    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                                      return Image.asset(
+                                        'assets/semFoto.png',
+                                        fit: BoxFit.cover,
+                                      );
+                                    }, 
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 3,

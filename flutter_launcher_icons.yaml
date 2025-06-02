@@ -1,6 +1,6 @@
 # dart pub run flutter_launcher_icons
 flutter_launcher_icons:
-  image_path: "assets/Roxo.png"
+  image_path: "assets/icon.png"
 
   android: "launcher_icon"
   # image_path_android: "assets/icon/icon.png"
@@ -18,7 +18,7 @@ flutter_launcher_icons:
 
   web:
     generate: true
-    image_path: "assets/Roxo.png"
+    image_path: "assets/icon.png"
     background_color: "#673AB7"
     theme_color: "#hexcode"
 
