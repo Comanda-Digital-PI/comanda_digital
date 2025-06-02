@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_faculdade/app/screens/home/widgets/caroussel_promocoes.dart';
 import 'package:flutter_faculdade/app/screens/home/widgets/categorias_widget.dart';
@@ -12,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       scrollDirection: Axis.vertical,
       child: Column(
         children: [
-          const Categorias(),
+          Categorias(),
           const SizedBox(height: 10,),
           const CarouselPromocoes(),
           const SizedBox(height: 10,),
@@ -22,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: Text(
                       'Prontos para entrega',
                       style: TextStyle(

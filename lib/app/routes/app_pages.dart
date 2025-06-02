@@ -3,7 +3,8 @@ import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/app/screens/configs/config_screen.dart';
 import 'package:flutter_faculdade/app/screens/home/home_screen.dart';
 import 'package:flutter_faculdade/app/screens/auth/login_screen.dart';
-import 'package:flutter_faculdade/app/screens/mesas_screen.dart';
+import 'package:flutter_faculdade/app/screens/home/widgets/product_widget.dart';
+import 'package:flutter_faculdade/app/screens/mesas/mesas_screen.dart';
 import 'package:flutter_faculdade/app/screens/pedidos_screen.dart';
 import 'package:flutter_faculdade/utils/widgets/global_scaffold.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,9 @@ class AppPages {
     GetPage(
       name: AppRoutes.login,
       page: () => LoginScreen(),
+      transition: Transition.noTransition, 
     ),
+    
     GetPage(
       name: AppRoutes.globalScaffold,
       page: () => GlobalScaffold(),
@@ -27,6 +30,10 @@ class AppPages {
       page: () => const HomeScreen(),
     ),
     GetPage(
+      name: AppRoutes.product,
+      page: () =>  ProductWidget(),
+    ),
+    GetPage(
       name: AppRoutes.pedidos,
       page: () => const PedidosScreen(),
     ),
@@ -38,6 +45,5 @@ class AppPages {
       name: AppRoutes.addConfig,
       page: () => ConfigScreen(),
     ),
-
   ];
 }

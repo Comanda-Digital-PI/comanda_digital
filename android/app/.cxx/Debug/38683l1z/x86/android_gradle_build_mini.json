@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/atilarodrigues/fvm/versions/3.29.1/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/atilarodrigues/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/atilarodrigues/GitHub/ProjetoFLU/comanda_digital/android/app/.cxx/Debug/38683l1z/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/atilarodrigues/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/atilarodrigues/GitHub/ProjetoFLU/comanda_digital/android/app/.cxx/Debug/38683l1z/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

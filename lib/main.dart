@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_faculdade/app/controllers/config_controller.dart';
 import 'package:flutter_faculdade/app/routes/app_pages.dart';
 import 'package:flutter_faculdade/app/routes/app_routes.dart';
 import 'package:flutter_faculdade/utils/app_bindings.dart';
 import 'package:get/get.dart';
 
-
-void main() {
+void main() async {
+  Get.put(ConfigController());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -21,18 +27,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
         brightness: Brightness.light, // Tema claro
         textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 18, color: Colors.black), // Estilo de texto global
+          bodyLarge: TextStyle(
+              fontSize: 18, color: Colors.black), // Estilo de texto global
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.deepPurple, // Cor da AppBar
           titleTextStyle: TextStyle(fontSize: 20, color: Colors.white),
         ),
-
       ),
       getPages: AppPages.routes,
       initialRoute: AppRoutes.login,
-      initialBinding: AppBindings(), 
+      initialBinding: AppBindings(),
     );
   }
 }
-

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997803267726",
+    "project_id": "comanda-digital-5dbae",
+    "storage_bucket": "comanda-digital-5dbae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997803267726:android:2f7b2975bd49220c88dbdf",
+        "android_client_info": {
+          "package_name": "com.example.comanda_digital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYZmpZhREurpKTNlvsIZmu5QC3JWMRHlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,1 @@
+/Users/atilarodrigues/GitHub/ProjetoFLU/comanda_digital/build/app/intermediates/cxx/Debug/5rs6t37o/obj/arm64-v8a
