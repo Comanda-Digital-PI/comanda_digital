@@ -30,6 +30,10 @@ class PedidoController  extends BaseProductsController
     return pedidos.where((p) => p.status == selectedStatus.value).toList();
   }
 
+  List<PedidoModel> get pedidosProntos {
+    return pedidos.where((p) => p.status == 'pronto').toList();
+  }
+
   @override
   void onInit() async {
     super.onInit();

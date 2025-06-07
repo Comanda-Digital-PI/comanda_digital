@@ -48,14 +48,14 @@ class CarouselPromocoes extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: CarouselSlider(
             options: CarouselOptions(
-              // height: double.infinity,
+              height: 170,
               enlargeCenterPage: true,
               autoPlay: true,
               enableInfiniteScroll: false,
             ),
             items:  [
               Card(
-                elevation: 3,
+                elevation: 2,
                 color: Colors.grey.shade300,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(7))
@@ -95,7 +95,7 @@ class CarouselPromocoes extends StatelessWidget {
                 ),
               ),
               Card(
-                elevation: 3,
+                elevation: 2,
                 color: Colors.grey.shade300,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(7))
@@ -136,7 +136,7 @@ class CarouselPromocoes extends StatelessWidget {
                 ),
               ),
               Card(
-                elevation: 3,
+                elevation: 2,
                 color: Colors.grey.shade300,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(7))

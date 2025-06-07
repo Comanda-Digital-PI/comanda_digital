@@ -265,7 +265,7 @@ class CriaPedidoScreen extends StatelessWidget {
                         },  
                         label: const Text(
                           'Cancelar Pedido',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                     ),
@@ -292,7 +292,7 @@ class CriaPedidoScreen extends StatelessWidget {
                         },
                         label: const Text(
                           'Concluir Pedido',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
                         ),
                       ),
                     ),
