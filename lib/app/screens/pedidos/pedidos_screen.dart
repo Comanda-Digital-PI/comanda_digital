@@ -17,183 +17,234 @@ class PedidosScreen extends StatelessWidget {
       }
 
       // Se não houver nenhum pedido, exibe mensagem
-      if (controller.pedidos.isEmpty) {
-        return Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+      if (controller.pedidosFiltrados.isEmpty) {
+
+      }
+
+      // Caso existam pedidos, exibe o grid de cards
+      return Column(
+        children: [
+          Row(
             children: [
-              Icon(Icons.receipt_long, size: 60, color: Colors.grey.shade500),
-              const SizedBox(height: 12),
-              Text(
-                'Nenhum pedido registrado',
-                style: TextStyle(
-                  color: Colors.grey.shade700,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: DropdownButtonFormField<String>(
+                    value: controller.selectedStatus.value,
+                    decoration: const InputDecoration(
+                      labelText: 'Filtrar por status',
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold
+                      ),
+                      border: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple)
+                      ),
+                      disabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple)
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.deepPurple)
+                      ),
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    ),
+                    items: controller.statusOptions
+                        .map((s) => DropdownMenuItem(value: s, child: Text(s.toUpperCase())))
+                        .toList(),
+                    onChanged: (novo) {
+                      if (novo != null) controller.selectedStatus.value = novo;
+                    },
+                  ),
                 ),
               ),
             ],
           ),
-        );
-      }
-
-      // Caso existam pedidos, exibe o grid de cards
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 3 / 4,
-          ),
-          itemCount: controller.pedidos.length,
-          itemBuilder: (context, index) {
-            final pedido = controller.pedidos[index];
-
-            final numeroPedido = pedido.numeroPedido.toString();
-            final numeroMesa = pedido.numeroMesa.toString();
-            final status = pedido.status;
-            final valorTotal = pedido.valorTotal.toStringAsFixed(2);
-            final produtosList = pedido.produtos;
-
-            return Card(
-              elevation: 3,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              clipBehavior: Clip.antiAlias,
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8)
-                ),
-                child: InkWell(
-                  onTap: () {
-                    print('aaa');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // #Pedido e Mesa
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '#$numeroPedido',
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              'Mesa $numeroMesa',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                  
-                        const SizedBox(height: 6),
-                  
-                        // Status
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 6, vertical: 2),
-                          decoration: BoxDecoration(
-                            color: status == 'aberto'
-                                ? Colors.green.shade200
-                                : Colors.green.shade100,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            status.toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: status == 'aberto'
-                                  ? Colors.green.shade800
-                                  : Colors.green.shade800,
-                            ),
-                          ),
-                        ),
-                  
-                        const SizedBox(height: 10),
-                  
-                        // Lista de produtos
-                        const Text(
-                          'Produtos:',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Expanded(
-                          child: ListView.separated(
-                            itemCount: produtosList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 2),
-                            itemBuilder: (ctx, i) {
-                              final item = produtosList[i];
-                              final nome = item['nomeProduto']?.toString() ?? '';
-                              final qtd = (item['quantidade'] ?? 0).toString();
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      nome,
-                                      style: const TextStyle(fontSize: 13),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'x$qtd',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                  
-                        const SizedBox(height: 8),
-                  
-                        // Valor total
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Total:',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Text(
-                              'R\$ $valorTotal',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+          if (controller.pedidosFiltrados.isEmpty) ... [
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.receipt_long, size: 60, color: Colors.grey.shade500),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Nenhum pedido registrado',
+                      style: TextStyle(
+                        color: Colors.grey.shade700,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
-            );
-          },
-        ),
+            )
+          ] else ... [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    childAspectRatio: 3 / 4,
+                  ),
+                  itemCount: controller.pedidosFiltrados.length,
+                  itemBuilder: (context, index) {
+                    final pedido = controller.pedidosFiltrados[index];
+              
+                    final numeroPedido = pedido.numeroPedido.toString();
+                    final numeroMesa = pedido.numeroMesa.toString();
+                    final status = pedido.status;
+                    final valorTotal = pedido.valorTotal.toStringAsFixed(2);
+                    final produtosList = pedido.produtos;
+              
+                    return Card(
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8)
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            controller.openStatusDialog(pedido);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // #Pedido e Mesa
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      '#$numeroPedido',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Mesa $numeroMesa',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                          
+                                const SizedBox(height: 6),
+                          
+                                // Status
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: controller.getStatusColors(status),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            status.toUpperCase(),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                              color: controller.getStatusColors(status, text: true)
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                          
+                                const SizedBox(height: 10),
+                          
+                                // Lista de produtos
+                                const Text(
+                                  'Produtos:',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Expanded(
+                                  child: ListView.separated(
+                                    itemCount: produtosList.length,
+                                    separatorBuilder: (_, __) => const SizedBox(height: 2),
+                                    itemBuilder: (ctx, i) {
+                                      final item = produtosList[i];
+                                      final nome = item['nomeProduto']?.toString() ?? '';
+                                      final qtd = (item['quantidade'] ?? 0).toString();
+                                      return Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              nome,
+                                              style: const TextStyle(fontSize: 13),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 4),
+                                          Text(
+                                            'x$qtd',
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ),
+                          
+                                const SizedBox(height: 8),
+                          
+                                // Valor total
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Total:',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Text(
+                                      'R\$ $valorTotal',
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ]
+        ],
       );
     });
   }
