@@ -199,7 +199,7 @@ class Categorias extends StatelessWidget {
                             'Aperitivos',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.bold
                             ),
                           )
@@ -253,7 +253,7 @@ class Categorias extends StatelessWidget {
                             'Drinks',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.bold
                             ),
                           )
@@ -307,7 +307,7 @@ class Categorias extends StatelessWidget {
                             'Sobremesas',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.bold
                             ),
                           )
@@ -361,7 +361,7 @@ class Categorias extends StatelessWidget {
                             'Ver todos',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 10,
+                              fontSize: 9,
                               fontWeight: FontWeight.bold
                             ),
                           )

@@ -83,22 +83,29 @@ class PedidosCard extends StatelessWidget {
                                 Text('Mesa ${pedido.numeroMesa}',
                                     style: const TextStyle(fontSize: 12)),
                                 const Spacer(),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
                                   children: [
-                                    const Text('Total:',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold
-                                      )
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text('Total:',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold
+                                          )
+                                        ),
+                                      ],
                                     ),
-                                    Text(
-                                      'R\$ ${pedido.valorTotal.toStringAsFixed(2)}',
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          'R\$ ${pedido.valorTotal.toStringAsFixed(2)}',
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
