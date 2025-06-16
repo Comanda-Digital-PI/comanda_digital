@@ -76,7 +76,7 @@ class ConfigController extends BaseProductsController
 
     final novoProd = Produto(
       nomeProduto: nomeProduto.text,
-      valor: double.tryParse(valorProduto.text.toString()) ?? 0.0,
+      valor: double.tryParse(valorProduto.text.replaceAll(',', '.')) ?? 0.0,
       categoria: categoriaSelecionada.value.toString(),
       image: imageFile.value!.path.toString(),
     );
@@ -220,30 +220,6 @@ class ConfigController extends BaseProductsController
     ));
   }
 
-  // Future<void> fetchProdutos() async {
-  //   try {
-  //     final query = await db.collection('produtos').get();
-  //     final lista = query.docs.map((doc) {
-  //       final data = doc.data();
-  //       return Produto(
-  //         nomeProduto: data['nomeProduto'] as String,
-  //         valor:       (data['valor'] as num).toDouble(),
-  //         categoria:   data['categoria'] as String,
-  //         image:       data['image'] as String,
-  //       );
-  //     }).toList();
-
-  //     produtos.assignAll(lista);
-
-  //   } on FirebaseException catch (e) {
-  //     if (kDebugMode) print('Erro ao buscar produtos: ${e.message}');
-  //     Get.showSnackbar(const GetSnackBar(
-  //       message: 'Falha ao carregar produtos.',
-  //       backgroundColor: Colors.red,
-  //       duration: Duration(seconds: 3),
-  //     ));
-  //   }
-  // }
 
   Future<void> showProduct(String categoria) async {
     isLoading.value = true;
